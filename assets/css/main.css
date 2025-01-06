@@ -166,6 +166,26 @@ h6 {
   border: 8px solid color-mix(in srgb, var(--default-color), transparent 85%);
 }
 
+
+.cat-img {
+  mask-image: url('../img/code-box.png');
+  mask-mode: alpha;
+  mask-repeat: no-repeat;
+  mask-size: contain; /* Ajusta el tamaño de la máscara */
+  mask-position: center; /* Centra la máscara */
+  
+  -webkit-mask-image: url('../img/code-box.png');
+  -webkit-mask-mode: alpha;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  -webkit-mask-position: center;
+  
+  display: block; /* Asegura que el contenedor respete los estilos */
+  max-width: 600px;
+  width: 100%;
+}
+
+
 .header .logo {
   line-height: 1;
   margin-bottom: 15px;
