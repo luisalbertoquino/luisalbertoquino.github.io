@@ -167,24 +167,28 @@ h6 {
 }
 
 
-.cat-img {
-  mask-image: url('../img/code-box.png');
-  mask-mode: alpha;
-  mask-repeat: no-repeat;
-  mask-size: contain; /* Ajusta el tamaño de la máscara */
-  mask-position: center; /* Centra la máscara */
-  
-  -webkit-mask-image: url('../img/code-box.png');
-  -webkit-mask-mode: alpha;
-  -webkit-mask-repeat: no-repeat;
+.mask-img {
+  /* Método 1: Usando mask-image */
+  -webkit-mask-image: url('https://luisalbertoquino.github.io/assets/img/mask.png');
+  mask-image: url('https://luisalbertoquino.github.io/assets/img/mask.png');
   -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
   -webkit-mask-position: center;
+  mask-position: center;
   
-  display: block; /* Asegura que el contenedor respete los estilos */
-  max-width: 600px;
+  /* Aseguramos que la imagen se ajuste correctamente */
   width: 100%;
+  height: auto;
+  display: block;
 }
 
+/* Método alternativo usando clip-path con mask-image */
+.mask-img-alternative {
+  -webkit-mask: url('https://luisalbertoquino.github.io/assets/img/mask.png') no-repeat center / contain;
+  mask: url('https://luisalbertoquino.github.io/assets/img/mask.png') no-repeat center / contain;
+}
 
 .header .logo {
   line-height: 1;
