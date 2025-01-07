@@ -21,8 +21,8 @@
 :root { 
   --background-color: #ffffff; /* Background color for the entire website, including individual sections */
   --default-color: #272829; /* Default color used for the majority of the text content across the entire website */
-  --heading-color: #050d18; /* Color for headings, subheadings and title throughout the website */
-  --accent-color: #149ddd; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --heading-color: linear-gradient(45deg, #ff7e5f, #feb47b);/* Color for headings, subheadings and title throughout the website */
+  --accent-color: linear-gradient(45deg, #ff7e5f, #feb47b); /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
   --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
@@ -45,6 +45,7 @@
   --background-color: #f4fafd;
   --surface-color: #ffffff;
 }
+
 
 .dark-background {
   --background-color: #040b14;
@@ -454,7 +455,7 @@ h6 {
   right: 15px;
   bottom: -15px;
   z-index: 99999;
-  background-color: var(--accent-color);
+  background: linear-gradient(45deg, #ff7e5f, #feb47b);
   width: 44px;
   height: 44px;
   border-radius: 50px;
@@ -1302,4 +1303,19 @@ section,
 --------------------------------------------------------------*/
 .starter-section {
   /* Add your styles here */
+}
+
+
+.skill-icon {
+  margin-right: 10px;
+  font-size: 1.7rem;
+  font-weight: 900;
+  background: linear-gradient(45deg, #ff7e5f, #feb47b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+.progress-bar {
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
 }
