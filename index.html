@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Luis Alberto Quino Manrique - Ingeniero de Sistemas Especialista en Desarrollo Web">
+    <meta name="author" content="Luis Alberto Quino Manrique">
+    <title>Luis A. Quino M. | Ingeniero de Sistemas</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%236366f1'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'%3ELQ%3C/text%3E%3C/svg%3E">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="code-loader">
+                <div class="code-line"><span class="code-comment">// Inicializando sistema...</span></div>
+                <div class="code-line"><span class="code-keyword">const</span> portfolio = <span class="code-keyword">new</span> <span class="code-function">Portfolio</span>();</div>
+                <div class="code-line">portfolio.<span class="code-function">loadData</span>();</div>
+                <div class="code-line">portfolio.<span class="code-function">render</span>();</div>
+                <div class="code-line"><span class="code-comment">// Listo! ✓</span></div>
+            </div>
+            <div class="spinner"></div>
+            <div class="loading-text">Cargando portafolio...</div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <div class="profile-photo">
+                <img src="assets/images/profile.jpeg" alt="Luis A. Quino M." id="profileImage">
+            </div>
+            <h3 class="profile-name">Luis A. Quino M.</h3>
+            <p class="profile-title">Ingeniero de Sistemas<br>Especialista en Desarrollo Web</p>
+            
+            <!-- Social Icons -->
+            <div class="social-icons">
+                <a href="https://github.com/luisalbertoquino" target="_blank" title="GitHub" class="social-icon">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://codepen.io/tu-usuario" target="_blank" title="CodePen" class="social-icon">
+                    <i class="fab fa-codepen"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/tu-perfil" target="_blank" title="LinkedIn" class="social-icon">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://wa.me/573042483977?text=Hola%20Luis,%20estoy%20interesado%20en%20tu%20perfil%20profesional" target="_blank" title="WhatsApp" class="social-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <nav class="sidebar-nav">
+            <a href="#inicio" class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Inicio</span>
+            </a>
+            <a href="#sobre-mi" class="nav-item">
+                <i class="fas fa-user"></i>
+                <span>Sobre mí</span>
+            </a>
+            <a href="#servicios" class="nav-item">
+                <i class="fas fa-briefcase"></i>
+                <span>Servicios</span>
+            </a>
+            <a href="#experiencia" class="nav-item">
+                <i class="fas fa-laptop-code"></i>
+                <span>Experiencia</span>
+            </a>
+            <a href="#proyectos" class="nav-item">
+                <i class="fas fa-folder-open"></i>
+                <span>Proyectos</span>
+            </a>
+            <a href="#educacion" class="nav-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Educación</span>
+            </a>
+            <a href="#certificaciones" class="nav-item">
+                <i class="fas fa-certificate"></i>
+                <span>Certificaciones</span>
+            </a>
+            <a href="#capacitaciones" class="nav-item">
+                <i class="fas fa-book-reader"></i>
+                <span>Capacitaciones</span>
+            </a>
+        </nav>
+
+        <!-- Sidebar Footer -->
+        <div class="sidebar-footer">
+            <a href="#" class="btn-download" onclick="downloadPDF()">
+                <i class="fas fa-download"></i>
+                <span>Descargar CV</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Toggle Button -->
+    <button id="sidebarToggle" class="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Ghost Character -->
+    <div id="ghost">
+        <div id="red">
+            <div id="pupil" class="eye"></div>
+            <div id="pupil1" class="eye"></div>
+            <div id="eye"></div>
+            <div id="eye1"></div>
+            <div id="top0"></div>
+            <div id="top1"></div>
+            <div id="top2"></div>
+            <div id="top3"></div>
+            <div id="top4"></div>
+            <div id="st0"></div>
+            <div id="st1"></div>
+            <div id="st2"></div>
+            <div id="st3"></div>
+            <div id="st4"></div>
+            <div id="st5"></div>
+            <div id="an1"></div>
+            <div id="an2"></div>
+            <div id="an3"></div>
+            <div id="an4"></div>
+            <div id="an5"></div>
+            <div id="an6"></div>
+            <div id="an7"></div>
+            <div id="an8"></div>
+            <div id="an9"></div>
+            <div id="an10"></div>
+            <div id="an11"></div>
+            <div id="an12"></div>
+            <div id="an13"></div>
+            <div id="an14"></div>
+            <div id="an15"></div>
+            <div id="an16"></div>
+            <div id="an17"></div>
+            <div id="an18"></div>
+        </div>
+        <div id="shadow"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="mainContent" class="main-content">
+        <!-- Hero Section -->
+        <section id="inicio" class="hero-section">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-circle" style="color: #10b981; font-size: 0.5em;"></i>
+                    Disponible para proyectos
+                </div>
+                <h1 class="hero-title">
+                    Hola, soy <span class="gradient-text signature-text" id="signatureName">Luis Alberto Quino</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Ingeniero de Sistemas Especialista en Desarrollo Web
+                </p>
+                <p class="hero-description">
+                    Desarrollo soluciones web innovadoras combinando desarrollo full-stack con 
+                    inteligencia artificial. Con más de 3 años de experiencia transformando ideas en productos digitales.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#sobre-mi" class="btn btn-primary">
+                        <i class="fas fa-user"></i> Conoce más
+                    </a>
+                    <a href="https://wa.me/573042483977?text=Hola%20Luis,%20estoy%20interesado%20en%20tu%20perfil%20profesional" 
+                       target="_blank" class="btn btn-outline">
+                        <i class="fab fa-whatsapp"></i> Contactar
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">3+</div>
+                        <div class="stat-label">Años de Experiencia</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="projectsCount">0</div>
+                        <div class="stat-label">Proyectos Completados</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="certificationsCount">0</div>
+                        <div class="stat-label">Certificaciones</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="sobre-mi" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-user"></i>
+                    Sobre mí
+                </h2>
+                <div class="about-grid">
+                    <div class="about-text">
+                        <p class="lead-text">
+                            Soy un apasionado por el desarrollo web con experiencia en administración de servidores en la nube, 
+                            desarrollo de plugins de WordPress y gestión de bases de datos MySQL.
+                        </p>
+                        <p>
+                            <strong>Ingeniero de Sistemas graduado de la Corporación Universitaria del Huila (CORHUILA)</strong>, 
+                            especializado en Desarrollo Web e Inteligencia Artificial. He trabajado en la administración 
+                            y mantenimiento de páginas web institucionales, incluyendo actualizaciones y publicación de contenido.
+                        </p>
+                        <p>
+                            He desarrollado módulos para aplicaciones web de gestión de inventario y ventas, y he participado 
+                            en el despliegue de proyectos en entornos de prueba y producción.
+                        </p>
+                    </div>
+                    <div class="about-info">
+                        <div class="info-card">
+                            <div class="info-item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <span class="info-label">Email</span>
+                                    <span class="info-value">alberto.1203@hotmail.com</span>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <span class="info-label">Teléfono</span>
+                                    <span class="info-value">+57 304 248 3977</span>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <span class="info-label">Ubicación</span>
+                                    <span class="info-value">Neiva, Colombia</span>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-globe"></i>
+                                <div>
+                                    <span class="info-label">Sitio web</span>
+                                    <span class="info-value">
+                                        <a href="https://luisalbertoquino.github.io" target="_blank">luisalbertoquino.github.io</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-heart"></i>
+                                <div>
+                                    <span class="info-label">Intereses</span>
+                                    <span class="info-value">Lectura, ejercicio, gastronomía</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="servicios" class="section section-alt">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-briefcase"></i>
+                    Servicios
+                </h2>
+                <p class="section-subtitle">
+                    Ofrezco soluciones profesionales en desarrollo web, creación de sistemas a medida y optimización de procesos. 
+                    Con más de 3 años de experiencia, garantizo calidad y resultados eficientes.
+                </p>
+                <div class="services-grid" id="servicesContainer">
+                    <!-- Services will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experiencia" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-laptop-code"></i>
+                    Experiencia Profesional
+                </h2>
+                <div class="timeline" id="experienceContainer">
+                    <!-- Experience will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="proyectos" class="section section-alt">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-folder-open"></i>
+                    Proyectos Destacados
+                </h2>
+                <div class="projects-grid" id="projectsContainer">
+                    <!-- Projects will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="educacion" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Educación
+                </h2>
+                <div class="timeline" id="educationContainer">
+                    <!-- Education will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certificaciones" class="section section-alt">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-certificate"></i>
+                    Certificaciones
+                </h2>
+                <div class="certifications-grid" id="certificationsContainer">
+                    <!-- Certifications will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Capacitaciones Section -->
+        <section id="capacitaciones" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-book-reader"></i>
+                    Capacitaciones y Cursos
+                </h2>
+                <div class="certifications-grid" id="capacitacionesContainer">
+                    <!-- Capacitaciones will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-text">
+                        <p>&copy; 2025 Luis Alberto Quino Manrique. Todos los derechos reservados.</p>
+                        <p>Ingeniero de Sistemas Especialista en Desarrollo Web</p>
+                    </div>
+                    <div class="footer-social">
+                        <a href="https://github.com/luisalbertoquino" target="_blank" title="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://codepen.io/tu-usuario" target="_blank" title="CodePen">
+                            <i class="fab fa-codepen"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/tu-perfil" target="_blank" title="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://wa.me/573042483977" target="_blank" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <span class="modal-close" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+        </span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Vista previa">
+        </div>
+        <button class="modal-download" onclick="downloadCurrentItem()">
+            <i class="fas fa-download"></i> Descargar
+        </button>
+    </div>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/573042483977?text=Hola%20Luis,%20estoy%20interesado%20en%20tu%20perfil%20profesional" 
+       target="_blank" class="whatsapp-float" title="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

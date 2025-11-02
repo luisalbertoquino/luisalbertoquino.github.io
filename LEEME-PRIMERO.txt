@@ -1,0 +1,141 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║   🚀 PORTFOLIO PROFESIONAL - LUIS ALBERTO QUINO MANRIQUE                 ║
+║                                                                           ║
+║   Ingeniero de Sistemas Especialista en Desarrollo Web                   ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+¡BIENVENIDO! 👋
+
+Has recibido tu portfolio web profesional completamente personalizado.
+Este archivo te guiará en los primeros pasos.
+
+
+📁 ARCHIVOS PRINCIPALES
+═══════════════════════════════════════════════════════════════════════════
+
+1. index.html          → Página principal (NO editar estructura)
+2. css/styles.css      → Estilos (puedes cambiar colores)
+3. js/app.js          → Datos y funcionalidad (EDITA AQUÍ tus datos)
+4. assets/images/      → Carpeta para tus imágenes
+
+
+📚 DOCUMENTACIÓN
+═══════════════════════════════════════════════════════════════════════════
+
+Lee estos archivos EN ORDEN:
+
+1. ✅ GUIA-RAPIDA.md
+   → Empieza AQUÍ para configurar rápido
+
+2. ✅ COMO-AGREGAR-IMAGENES.md
+   → Cómo agregar tu foto, proyectos y certificados
+
+3. ✅ CHECKLIST-FINAL.md
+   → Lista de verificación antes de publicar
+
+4. ✅ DEPLOYMENT.md
+   → Cómo subir tu sitio a Internet (GitHub Pages)
+
+5. ✅ EJEMPLOS-PERSONALIZACION.md
+   → Ejemplos de código para personalizar
+
+6. ✅ README.md
+   → Documentación técnica completa
+
+
+🎯 INICIO RÁPIDO (5 PASOS)
+═══════════════════════════════════════════════════════════════════════════
+
+1. AGREGAR TU FOTO
+   → Coloca tu foto en: assets/images/profile.jpg
+   → Tamaño: 400x400px
+
+2. EDITAR TUS DATOS
+   → Abre js/app.js
+   → Busca las funciones que empiezan con "get"
+   → Actualiza con tu información
+
+3. ACTUALIZAR REDES SOCIALES
+   → Abre index.html
+   → Busca los enlaces de GitHub, LinkedIn, etc.
+   → Cambia por tus perfiles
+
+4. PROBAR LOCALMENTE
+   → Haz doble clic en index.html
+   → Revisa que todo se vea bien
+
+5. PUBLICAR EN INTERNET
+   → Sigue la guía en DEPLOYMENT.md
+   → Tu sitio estará en: luisalbertoquino.github.io
+
+
+🎨 PERSONALIZACIÓN BÁSICA
+═══════════════════════════════════════════════════════════════════════════
+
+CAMBIAR COLORES:
+→ Abre css/styles.css
+→ Busca ":root {"
+→ Cambia --accent-primary por tu color favorito
+
+AGREGAR PROYECTOS:
+→ Abre js/app.js
+→ Busca "getProjectsData()"
+→ Copia un proyecto existente y modifícalo
+
+AGREGAR CERTIFICADOS:
+→ Guarda la imagen en assets/images/
+→ Abre js/app.js
+→ Busca "getCertificationsData()"
+→ Agrega tu certificado
+
+
+⚠️  IMPORTANTE - NO EDITAR
+═══════════════════════════════════════════════════════════════════════════
+
+❌ NO modifiques la estructura HTML de index.html
+❌ NO cambies los IDs o clases en index.html
+❌ NO elimines archivos CSS o JS
+❌ NO cambies la estructura de carpetas
+
+✅ SÍ puedes:
+   - Editar datos en js/app.js
+   - Cambiar colores en css/styles.css
+   - Agregar imágenes en assets/images/
+   - Actualizar textos en index.html
+
+
+🆘 SOPORTE
+═══════════════════════════════════════════════════════════════════════════
+
+¿Algo no funciona?
+
+1. Revisa CHECKLIST-FINAL.md
+2. Verifica que seguiste GUIA-RAPIDA.md
+3. Limpia caché del navegador (Ctrl + F5)
+4. Abre consola del navegador (F12) para ver errores
+
+
+📱 REDES SOCIALES
+═══════════════════════════════════════════════════════════════════════════
+
+GitHub:    github.com/luisalbertoquino
+LinkedIn:  (actualiza tu enlace)
+WhatsApp:  +57 304 248 3977
+Email:     alberto.1203@hotmail.com
+
+
+🎉 ¡LISTO PARA COMENZAR!
+═══════════════════════════════════════════════════════════════════════════
+
+Tu próximo paso:
+→ Abre GUIA-RAPIDA.md y sigue las instrucciones
+
+¡Mucho éxito con tu portfolio profesional! 🚀
+
+
+═══════════════════════════════════════════════════════════════════════════
+© 2025 Luis Alberto Quino Manrique
+Ingeniero de Sistemas | Desarrollo Web Full Stack
+═══════════════════════════════════════════════════════════════════════════

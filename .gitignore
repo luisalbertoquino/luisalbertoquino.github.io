@@ -1,0 +1,14 @@
+# Mac files
+.DS_Store
+
+# Windows files
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
