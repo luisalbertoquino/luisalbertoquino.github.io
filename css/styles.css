@@ -814,6 +814,11 @@ body {
     transition: var(--transition);
 }
 
+.view-btn i {
+    color: #000000;  /* Negro */
+    font-size: 0.9rem;
+}
+
 .view-btn:hover {
     transform: scale(1.05);
 }
