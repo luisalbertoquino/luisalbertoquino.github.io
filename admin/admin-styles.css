@@ -135,11 +135,13 @@ body {
 .sidebar-header h3 {
     font-size: 18px;
     margin-bottom: 8px;
+    text-align: center;
 }
 
 .sidebar-header p {
     font-size: 12px;
     color: rgba(255,255,255,0.6);
+    text-align: center;
 }
 
 .btn-home {
