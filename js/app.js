@@ -80,19 +80,31 @@ let allData = {
 // Load all data
 async function loadData() {
     try {
-        // In production, load from JSON files
-        // For now, using embedded data
-        allData = {
-            services: getServicesData(),
-            experience: getExperienceData(),
-            projects: getProjectsData(),
-            education: getEducationData(),
-            certifications: getCertificationsData(),
-            capacitaciones: getCapacitacionesData()
-        };
-        
-        renderAllSections();
-        updateStats();
+        // Solo cargar datos estáticos si Firebase NO está disponible
+        if (typeof firebase === 'undefined' || typeof firebaseService === 'undefined') {
+            console.warn('⚠️ Firebase no disponible, usando datos estáticos como fallback');
+
+            allData = {
+                services: getServicesData(),
+                experience: getExperienceData(),
+                projects: getProjectsData(),
+                education: getEducationData(),
+                certifications: getCertificationsData(),
+                capacitaciones: getCapacitacionesData()
+            };
+
+            renderAllSections();
+            updateStats();
+        } else {
+            // Firebase se encarga de cargar los datos dinámicamente
+            console.log('✅ Firebase detectado - Datos cargados dinámicamente por firebase-loader.js');
+
+            // Solo cargar servicios (no están en Firebase)
+            allData = {
+                services: getServicesData()
+            };
+            renderServices(allData.services);
+        }
     } catch (error) {
         console.error('Error loading data:', error);
     }
