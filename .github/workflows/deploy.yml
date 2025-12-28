@@ -28,42 +28,40 @@ jobs:
           fi
           echo "✅ Firebase secrets appear to be configured"
 
-      - name: Inject Firebase Config into HTML
+      - name: Create Firebase Config File
         run: |
-          echo "Injecting Firebase config directly into index.html..."
+          echo "Creating firebase-config.js with secrets..."
 
-          # Use a simpler approach - create temp file with replacement content
-          echo "    <script>" > /tmp/firebase_replacement.txt
-          echo "    const firebaseConfig = {" >> /tmp/firebase_replacement.txt
-          echo "      apiKey: \"${{ secrets.FIREBASE_API_KEY }}\"," >> /tmp/firebase_replacement.txt
-          echo "      authDomain: \"${{ secrets.FIREBASE_AUTH_DOMAIN }}\"," >> /tmp/firebase_replacement.txt
-          echo "      projectId: \"${{ secrets.FIREBASE_PROJECT_ID }}\"," >> /tmp/firebase_replacement.txt
-          echo "      storageBucket: \"${{ secrets.FIREBASE_STORAGE_BUCKET }}\"," >> /tmp/firebase_replacement.txt
-          echo "      messagingSenderId: \"${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}\"," >> /tmp/firebase_replacement.txt
-          echo "      appId: \"${{ secrets.FIREBASE_APP_ID }}\"," >> /tmp/firebase_replacement.txt
-          echo "      measurementId: \"${{ secrets.FIREBASE_MEASUREMENT_ID }}\"" >> /tmp/firebase_replacement.txt
-          echo "    };" >> /tmp/firebase_replacement.txt
-          echo "    firebase.initializeApp(firebaseConfig);" >> /tmp/firebase_replacement.txt
-          echo "    const db = firebase.firestore();" >> /tmp/firebase_replacement.txt
-          echo "    const auth = firebase.auth();" >> /tmp/firebase_replacement.txt
-          echo "    console.log('Firebase initialized successfully');" >> /tmp/firebase_replacement.txt
-          echo "    </script>" >> /tmp/firebase_replacement.txt
+          cat > firebase-config.js << 'FIREBASE_CONFIG_EOF'
+const firebaseConfig = {
+  apiKey: "FIREBASE_API_KEY_PLACEHOLDER",
+  authDomain: "FIREBASE_AUTH_DOMAIN_PLACEHOLDER",
+  projectId: "FIREBASE_PROJECT_ID_PLACEHOLDER",
+  storageBucket: "FIREBASE_STORAGE_BUCKET_PLACEHOLDER",
+  messagingSenderId: "FIREBASE_MESSAGING_SENDER_ID_PLACEHOLDER",
+  appId: "FIREBASE_APP_ID_PLACEHOLDER",
+  measurementId: "FIREBASE_MEASUREMENT_ID_PLACEHOLDER"
+};
 
-          echo "Replacement content:"
-          cat /tmp/firebase_replacement.txt
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const auth = firebase.auth();
 
-          # Use awk to replace the line
-          awk '/<script src="firebase-config.js"><\/script>/{system("cat /tmp/firebase_replacement.txt");next}1' index.html > index.html.tmp
-          mv index.html.tmp index.html
+console.log('Firebase initialized successfully');
+FIREBASE_CONFIG_EOF
 
-          echo "Verifying injection..."
-          if grep -q "const firebaseConfig" index.html; then
-            echo "✅ Verification: Firebase config found in index.html"
-            grep -A 5 "const firebaseConfig" index.html | head -10
-          else
-            echo "❌ ERROR: Firebase config not found in index.html!"
-            exit 1
-          fi
+          # Replace placeholders with actual secrets
+          sed -i "s/FIREBASE_API_KEY_PLACEHOLDER/${{ secrets.FIREBASE_API_KEY }}/g" firebase-config.js
+          sed -i "s/FIREBASE_AUTH_DOMAIN_PLACEHOLDER/${{ secrets.FIREBASE_AUTH_DOMAIN }}/g" firebase-config.js
+          sed -i "s/FIREBASE_PROJECT_ID_PLACEHOLDER/${{ secrets.FIREBASE_PROJECT_ID }}/g" firebase-config.js
+          sed -i "s|FIREBASE_STORAGE_BUCKET_PLACEHOLDER|${{ secrets.FIREBASE_STORAGE_BUCKET }}|g" firebase-config.js
+          sed -i "s/FIREBASE_MESSAGING_SENDER_ID_PLACEHOLDER/${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}/g" firebase-config.js
+          sed -i "s|FIREBASE_APP_ID_PLACEHOLDER|${{ secrets.FIREBASE_APP_ID }}|g" firebase-config.js
+          sed -i "s/FIREBASE_MEASUREMENT_ID_PLACEHOLDER/${{ secrets.FIREBASE_MEASUREMENT_ID }}/g" firebase-config.js
+
+          echo "✅ firebase-config.js created successfully"
+          echo "Content:"
+          cat firebase-config.js
 
       - name: Prepare deployment directory
         run: |
@@ -79,7 +77,6 @@ jobs:
             --exclude='.claude' \
             --exclude='deploy' \
             --exclude='node_modules' \
-            --exclude='firebase-config.js' \
             --exclude='firebase-config.example.js' \
             --exclude='*.md' \
             --exclude='*.txt' \
@@ -96,11 +93,13 @@ jobs:
             . deploy/
 
           echo "✅ Files copied to deploy directory"
-          echo "Verifying index.html has Firebase config..."
-          if grep -q "const firebaseConfig" deploy/index.html; then
-            echo "✅ Firebase config found in index.html"
+          echo "Verifying firebase-config.js exists in deploy..."
+          if [ -f deploy/firebase-config.js ]; then
+            echo "✅ firebase-config.js found in deploy directory"
+            echo "File size:"
+            ls -lh deploy/firebase-config.js
           else
-            echo "❌ ERROR: Firebase config not found in index.html!"
+            echo "❌ ERROR: firebase-config.js not found in deploy!"
             exit 1
           fi
 
