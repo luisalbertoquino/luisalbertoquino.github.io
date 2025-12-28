@@ -113,5 +113,5 @@ jobs:
           publish_dir: ./deploy
           force_orphan: false
           enable_jekyll: false
-          keep_files: false
+          keep_files: true
           commit_message: 'Deploy with firebase-config.js'
