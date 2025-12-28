@@ -395,7 +395,21 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Scripts -->
+    <!-- Firebase SDKs (Cargar primero) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+
+    <!-- Firebase Config (tu configuración personalizada) -->
+    <script src="firebase-config.js"></script>
+
+    <!-- Firebase Service -->
+    <script src="js/firebase/firebase-service.js"></script>
+
+    <!-- Firebase Loader (carga datos dinámicos) -->
+    <script src="js/firebase/firebase-loader.js"></script>
+
+    <!-- Scripts originales -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="js/app.js"></script>
 </body>

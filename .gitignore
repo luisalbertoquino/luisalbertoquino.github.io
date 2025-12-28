@@ -12,3 +12,8 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Firebase config (NEVER commit this!)
+firebase-config.js
+nul
+.claude/
