@@ -32,45 +32,33 @@ jobs:
         run: |
           echo "Injecting Firebase config directly into index.html..."
 
-          # Create Firebase config as a temporary file
-          cat > firebase-inline.txt << 'FIREBASE_EOF'
-    <script>
-    const firebaseConfig = {
-      apiKey: "FIREBASE_API_KEY_PLACEHOLDER",
-      authDomain: "FIREBASE_AUTH_DOMAIN_PLACEHOLDER",
-      projectId: "FIREBASE_PROJECT_ID_PLACEHOLDER",
-      storageBucket: "FIREBASE_STORAGE_BUCKET_PLACEHOLDER",
-      messagingSenderId: "FIREBASE_MESSAGING_SENDER_ID_PLACEHOLDER",
-      appId: "FIREBASE_APP_ID_PLACEHOLDER",
-      measurementId: "FIREBASE_MEASUREMENT_ID_PLACEHOLDER"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-    const auth = firebase.auth();
-    console.log('Firebase initialized successfully');
-    </script>
-FIREBASE_EOF
+          echo "    <script>" > firebase-inline.txt
+          echo "    const firebaseConfig = {" >> firebase-inline.txt
+          echo "      apiKey: \"${{ secrets.FIREBASE_API_KEY }}\"," >> firebase-inline.txt
+          echo "      authDomain: \"${{ secrets.FIREBASE_AUTH_DOMAIN }}\"," >> firebase-inline.txt
+          echo "      projectId: \"${{ secrets.FIREBASE_PROJECT_ID }}\"," >> firebase-inline.txt
+          echo "      storageBucket: \"${{ secrets.FIREBASE_STORAGE_BUCKET }}\"," >> firebase-inline.txt
+          echo "      messagingSenderId: \"${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}\"," >> firebase-inline.txt
+          echo "      appId: \"${{ secrets.FIREBASE_APP_ID }}\"," >> firebase-inline.txt
+          echo "      measurementId: \"${{ secrets.FIREBASE_MEASUREMENT_ID }}\"" >> firebase-inline.txt
+          echo "    };" >> firebase-inline.txt
+          echo "    firebase.initializeApp(firebaseConfig);" >> firebase-inline.txt
+          echo "    const db = firebase.firestore();" >> firebase-inline.txt
+          echo "    const auth = firebase.auth();" >> firebase-inline.txt
+          echo "    console.log('Firebase initialized successfully');" >> firebase-inline.txt
+          echo "    </script>" >> firebase-inline.txt
 
-          # Replace placeholders with actual secrets
-          sed -i "s|FIREBASE_API_KEY_PLACEHOLDER|${{ secrets.FIREBASE_API_KEY }}|g" firebase-inline.txt
-          sed -i "s|FIREBASE_AUTH_DOMAIN_PLACEHOLDER|${{ secrets.FIREBASE_AUTH_DOMAIN }}|g" firebase-inline.txt
-          sed -i "s|FIREBASE_PROJECT_ID_PLACEHOLDER|${{ secrets.FIREBASE_PROJECT_ID }}|g" firebase-inline.txt
-          sed -i "s|FIREBASE_STORAGE_BUCKET_PLACEHOLDER|${{ secrets.FIREBASE_STORAGE_BUCKET }}|g" firebase-inline.txt
-          sed -i "s|FIREBASE_MESSAGING_SENDER_ID_PLACEHOLDER|${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}|g" firebase-inline.txt
-          sed -i "s|FIREBASE_APP_ID_PLACEHOLDER|${{ secrets.FIREBASE_APP_ID }}|g" firebase-inline.txt
-          sed -i "s|FIREBASE_MEASUREMENT_ID_PLACEHOLDER|${{ secrets.FIREBASE_MEASUREMENT_ID }}|g" firebase-inline.txt
+          echo "Firebase inline config created:"
+          cat firebase-inline.txt
 
-          # Replace the script tag in index.html with the inline config
           sed -i '/<script src="firebase-config.js"><\/script>/r firebase-inline.txt' index.html
           sed -i '/<script src="firebase-config.js"><\/script>/d' index.html
 
           echo "✅ Firebase config injected into index.html"
-          echo "Verifying injection..."
           if grep -q "const firebaseConfig" index.html; then
-            echo "✅ Firebase config found in index.html"
-            grep -A 8 "const firebaseConfig" index.html | head -12
+            echo "✅ Verification: Firebase config found in index.html"
           else
-            echo "❌ ERROR: Firebase config not found!"
+            echo "❌ ERROR: Firebase config not found in index.html!"
             exit 1
           fi
 
