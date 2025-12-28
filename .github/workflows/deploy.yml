@@ -31,25 +31,21 @@ jobs:
       - name: Create firebase-config.js
         run: |
           echo "Creating firebase-config.js with secrets..."
-          cat > firebase-config.js << EOF
-// Firebase Configuration
-const firebaseConfig = {
-  apiKey: "${{ secrets.FIREBASE_API_KEY }}",
-  authDomain: "${{ secrets.FIREBASE_AUTH_DOMAIN }}",
-  projectId: "${{ secrets.FIREBASE_PROJECT_ID }}",
-  storageBucket: "${{ secrets.FIREBASE_STORAGE_BUCKET }}",
-  messagingSenderId: "${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}",
-  appId: "${{ secrets.FIREBASE_APP_ID }}",
-  measurementId: "${{ secrets.FIREBASE_MEASUREMENT_ID }}"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-const auth = firebase.auth();
-
-console.log('✅ Firebase initialized successfully');
-EOF
+          echo "const firebaseConfig = {" > firebase-config.js
+          echo "  apiKey: \"${{ secrets.FIREBASE_API_KEY }}\"," >> firebase-config.js
+          echo "  authDomain: \"${{ secrets.FIREBASE_AUTH_DOMAIN }}\"," >> firebase-config.js
+          echo "  projectId: \"${{ secrets.FIREBASE_PROJECT_ID }}\"," >> firebase-config.js
+          echo "  storageBucket: \"${{ secrets.FIREBASE_STORAGE_BUCKET }}\"," >> firebase-config.js
+          echo "  messagingSenderId: \"${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}\"," >> firebase-config.js
+          echo "  appId: \"${{ secrets.FIREBASE_APP_ID }}\"," >> firebase-config.js
+          echo "  measurementId: \"${{ secrets.FIREBASE_MEASUREMENT_ID }}\"" >> firebase-config.js
+          echo "};" >> firebase-config.js
+          echo "" >> firebase-config.js
+          echo "firebase.initializeApp(firebaseConfig);" >> firebase-config.js
+          echo "const db = firebase.firestore();" >> firebase-config.js
+          echo "const auth = firebase.auth();" >> firebase-config.js
+          echo "" >> firebase-config.js
+          echo "console.log('Firebase initialized successfully');" >> firebase-config.js
 
           echo "firebase-config.js created"
           cat firebase-config.js
