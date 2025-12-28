@@ -137,6 +137,16 @@ class PortfolioFirebaseLoader {
       // ==================== REDES SOCIALES ====================
 
       this.updateSocialLinks(profile);
+
+      // ==================== SERVICIOS ====================
+
+      // Actualizar descripción de servicios
+      if (profile.servicesDescription) {
+        const servicesSubtitle = document.getElementById('servicesSubtitle');
+        if (servicesSubtitle) {
+          servicesSubtitle.textContent = profile.servicesDescription;
+        }
+      }
     }
   }
 
