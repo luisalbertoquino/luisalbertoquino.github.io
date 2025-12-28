@@ -51,7 +51,13 @@ class PortfolioFirebaseLoader {
 
       // Actualizar nombre en hero
       const signatureName = document.getElementById('signatureName');
-      if (signatureName) signatureName.textContent = profile.fullName || 'Luis Alberto Quino';
+      if (signatureName) {
+        signatureName.textContent = profile.fullName || 'Luis Alberto Quino';
+        // Reiniciar animación de firma después de actualizar el nombre
+        if (typeof initSignatureAnimation === 'function') {
+          initSignatureAnimation();
+        }
+      }
 
       // Actualizar título profesional
       const profileTitle = document.querySelector('.profile-title');
@@ -385,11 +391,25 @@ class PortfolioFirebaseLoader {
   }
 
   /**
-   * Carga los servicios (opcional)
+   * Carga los servicios desde Firebase
    */
   async loadServices() {
-    // Esta función puede cargar servicios desde Firebase si decides agregarlos
-    // Por ahora, mantendrá los servicios estáticos del app.js original
+    const services = await firebaseService.getServices();
+
+    if (services && services.length > 0) {
+      const servicesContainer = document.querySelector('#servicios .services-grid');
+      if (servicesContainer) {
+        servicesContainer.innerHTML = services.map(service => `
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="${service.icon}"></i>
+            </div>
+            <h3>${service.title}</h3>
+            <p>${service.description}</p>
+          </div>
+        `).join('');
+      }
+    }
   }
 
   /**

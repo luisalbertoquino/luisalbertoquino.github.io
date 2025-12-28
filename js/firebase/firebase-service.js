@@ -261,6 +261,51 @@ class FirebaseService {
     }
   }
 
+  // ==================== SERVICIOS ====================
+
+  async getServices() {
+    try {
+      const snapshot = await this.db.collection('services').get();
+      return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    } catch (error) {
+      console.error('Error al obtener servicios:', error);
+      return [];
+    }
+  }
+
+  async addService(data) {
+    try {
+      const docRef = await this.db.collection('services').add({
+        ...data,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      return { success: true, id: docRef.id };
+    } catch (error) {
+      console.error('Error al agregar servicio:', error);
+      return { success: false, error };
+    }
+  }
+
+  async updateService(id, data) {
+    try {
+      await this.db.collection('services').doc(id).update(data);
+      return { success: true };
+    } catch (error) {
+      console.error('Error al actualizar servicio:', error);
+      return { success: false, error };
+    }
+  }
+
+  async deleteService(id) {
+    try {
+      await this.db.collection('services').doc(id).delete();
+      return { success: true };
+    } catch (error) {
+      console.error('Error al eliminar servicio:', error);
+      return { success: false, error };
+    }
+  }
+
   // ==================== STORAGE - SUBIDA DE ARCHIVOS ====================
 
   // ==================== ARCHIVOS (NO USADO - Archivos en GitHub) ====================

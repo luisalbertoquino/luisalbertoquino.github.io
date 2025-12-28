@@ -95,6 +95,9 @@ async function loadSectionData(section) {
         case 'courses':
             await loadCourses();
             break;
+        case 'services':
+            await loadServices();
+            break;
         case 'files':
             await loadFiles();
             break;
@@ -120,6 +123,13 @@ async function loadProfile() {
                 preview.src = profile.profileImage;
                 preview.style.display = 'block';
                 noImage.style.display = 'none';
+            }
+
+            // Mostrar foto en el sidebar del admin
+            const adminPhoto = document.getElementById('adminProfileImage');
+            if (adminPhoto) {
+                adminPhoto.src = profile.profileImage;
+                adminPhoto.style.display = 'block';
             }
         }
     }
@@ -615,6 +625,111 @@ document.getElementById('courseFileUpload').addEventListener('change', async (e)
         alert('✅ Certificado subido correctamente');
     } catch (error) {
         alert('❌ Error al subir certificado');
+    }
+});
+
+// ==================== SERVICIOS ====================
+
+async function loadServices() {
+    const services = await firebaseService.getServices();
+    const container = document.getElementById('servicesList');
+
+    if (!services || services.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #999; padding: 2rem;">No hay servicios agregados</p>';
+        return;
+    }
+
+    container.innerHTML = services.map(item => `
+        <div class="item-card">
+            <div class="item-info">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                    <i class="${item.icon}" style="font-size: 2rem; color: #6366f1;"></i>
+                    <h4 style="margin: 0;">${item.title}</h4>
+                </div>
+                <p style="margin-top: 0.5rem;">${item.description}</p>
+            </div>
+            <div class="item-actions">
+                <button class="btn-edit" onclick="editService('${item.id}')">
+                    <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn-delete" onclick="deleteService('${item.id}')">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function showServiceForm(id = null) {
+    document.getElementById('serviceFormModal').style.display = 'flex';
+    if (!id) {
+        document.getElementById('serviceForm').reset();
+        document.getElementById('serviceFormTitle').textContent = 'Nuevo Servicio';
+        document.getElementById('iconPreview').className = 'fas fa-question';
+    }
+}
+
+function hideServiceForm() {
+    document.getElementById('serviceFormModal').style.display = 'none';
+}
+
+async function editService(id) {
+    const services = await firebaseService.getServices();
+    const item = services.find(s => s.id === id);
+
+    if (item) {
+        const form = document.getElementById('serviceForm');
+        Object.keys(item).forEach(key => {
+            const input = form.elements[key];
+            if (input) input.value = item[key] || '';
+        });
+
+        // Actualizar preview del icono
+        if (item.icon) {
+            document.getElementById('iconPreview').className = item.icon;
+        }
+
+        document.getElementById('serviceFormTitle').textContent = 'Editar Servicio';
+        showServiceForm(id);
+    }
+}
+
+async function deleteService(id) {
+    if (!confirm('¿Estás seguro de eliminar este servicio?')) return;
+
+    const result = await firebaseService.deleteService(id);
+    if (result.success) {
+        alert('✅ Eliminado correctamente');
+        loadServices();
+    }
+}
+
+document.getElementById('serviceForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    const id = data.id;
+    delete data.id;
+
+    const result = id
+        ? await firebaseService.updateService(id, data)
+        : await firebaseService.addService(data);
+
+    if (result.success) {
+        alert('✅ Guardado correctamente');
+        hideServiceForm();
+        loadServices();
+    }
+});
+
+// Preview del icono cuando se selecciona
+document.querySelector('#serviceForm select[name="icon"]').addEventListener('change', (e) => {
+    const iconPreview = document.getElementById('iconPreview');
+    if (e.target.value) {
+        iconPreview.className = e.target.value;
+    } else {
+        iconPreview.className = 'fas fa-question';
     }
 });
 

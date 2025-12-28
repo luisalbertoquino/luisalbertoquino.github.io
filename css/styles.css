@@ -228,7 +228,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-secondary);
+    color: #ffffff;
     text-decoration: none;
     transition: var(--transition);
     border: 1px solid var(--border-color);
@@ -251,8 +251,8 @@ body {
     align-items: center;
     gap: 1rem;
     padding: 0.875rem 1.5rem;
-    color: var(--text-dark);
-    background: white;
+    color: #ffffff;
+    background: #0A0E27;
     text-decoration: none;
     transition: var(--transition);
     border-left: 3px solid transparent;
@@ -264,7 +264,7 @@ body {
     width: 20px;
     text-align: center;
     font-size: 1.1rem;
-    color: var(--text-dark);
+    color: #ffffff;
 }
 
 
@@ -1013,20 +1013,19 @@ body {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     background: #25D366;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     text-decoration: none;
     box-shadow: var(--shadow-lg);
     z-index: 999;
     transition: var(--transition);
-    animation: bounce 2s infinite;
 }
 
 .whatsapp-float:hover {

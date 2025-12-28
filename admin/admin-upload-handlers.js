@@ -38,6 +38,13 @@ document.addEventListener('DOMContentLoaded', () => {
           noImage.style.display = 'none';
         }
 
+        // Actualizar foto en el sidebar del admin
+        const adminPhoto = document.getElementById('adminProfileImage');
+        if (adminPhoto) {
+          adminPhoto.src = url;
+          adminPhoto.style.display = 'block';
+        }
+
         showUploadProgress('');
         alert(`✅ Foto de perfil subida correctamente\n\nURL: ${url}\n\n⏳ Espera 3-5 minutos para que GitHub Pages se actualice.`);
 
