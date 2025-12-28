@@ -31,7 +31,7 @@ jobs:
       - name: Create firebase-config.js
         run: |
           echo "Creating firebase-config.js with secrets..."
-          cat > firebase-config.js << 'FIREBASE_EOF'
+          cat > firebase-config.js << EOF
 // Firebase Configuration
 const firebaseConfig = {
   apiKey: "${{ secrets.FIREBASE_API_KEY }}",
@@ -49,7 +49,7 @@ const db = firebase.firestore();
 const auth = firebase.auth();
 
 console.log('✅ Firebase initialized successfully');
-FIREBASE_EOF
+EOF
 
           echo "firebase-config.js created"
           cat firebase-config.js
