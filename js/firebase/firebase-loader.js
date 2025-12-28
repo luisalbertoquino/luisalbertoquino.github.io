@@ -7,7 +7,8 @@
 class PortfolioFirebaseLoader {
   constructor() {
     this.db = firebase.firestore();
-    this.storage = firebase.storage();
+    // NO usamos Firebase Storage - archivos en GitHub
+    // this.storage = firebase.storage();
   }
 
   /**
