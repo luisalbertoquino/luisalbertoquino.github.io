@@ -32,29 +32,47 @@ jobs:
         run: |
           echo "Injecting Firebase config directly into index.html..."
 
-          # Create the Firebase config script block
-          FIREBASE_SCRIPT="<script>\n\
-          const firebaseConfig = {\n\
-            apiKey: \"${{ secrets.FIREBASE_API_KEY }}\",\n\
-            authDomain: \"${{ secrets.FIREBASE_AUTH_DOMAIN }}\",\n\
-            projectId: \"${{ secrets.FIREBASE_PROJECT_ID }}\",\n\
-            storageBucket: \"${{ secrets.FIREBASE_STORAGE_BUCKET }}\",\n\
-            messagingSenderId: \"${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}\",\n\
-            appId: \"${{ secrets.FIREBASE_APP_ID }}\",\n\
-            measurementId: \"${{ secrets.FIREBASE_MEASUREMENT_ID }}\"\n\
-          };\n\
-          firebase.initializeApp(firebaseConfig);\n\
-          const db = firebase.firestore();\n\
-          const auth = firebase.auth();\n\
-          console.log('Firebase initialized successfully');\n\
-          </script>"
+          # Create Firebase config as a temporary file
+          cat > firebase-inline.txt << 'FIREBASE_EOF'
+    <script>
+    const firebaseConfig = {
+      apiKey: "FIREBASE_API_KEY_PLACEHOLDER",
+      authDomain: "FIREBASE_AUTH_DOMAIN_PLACEHOLDER",
+      projectId: "FIREBASE_PROJECT_ID_PLACEHOLDER",
+      storageBucket: "FIREBASE_STORAGE_BUCKET_PLACEHOLDER",
+      messagingSenderId: "FIREBASE_MESSAGING_SENDER_ID_PLACEHOLDER",
+      appId: "FIREBASE_APP_ID_PLACEHOLDER",
+      measurementId: "FIREBASE_MEASUREMENT_ID_PLACEHOLDER"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+    console.log('Firebase initialized successfully');
+    </script>
+FIREBASE_EOF
 
-          # Replace the firebase-config.js script tag with inline config
-          sed -i "s|<script src=\"firebase-config.js\"></script>|$FIREBASE_SCRIPT|" index.html
+          # Replace placeholders with actual secrets
+          sed -i "s|FIREBASE_API_KEY_PLACEHOLDER|${{ secrets.FIREBASE_API_KEY }}|g" firebase-inline.txt
+          sed -i "s|FIREBASE_AUTH_DOMAIN_PLACEHOLDER|${{ secrets.FIREBASE_AUTH_DOMAIN }}|g" firebase-inline.txt
+          sed -i "s|FIREBASE_PROJECT_ID_PLACEHOLDER|${{ secrets.FIREBASE_PROJECT_ID }}|g" firebase-inline.txt
+          sed -i "s|FIREBASE_STORAGE_BUCKET_PLACEHOLDER|${{ secrets.FIREBASE_STORAGE_BUCKET }}|g" firebase-inline.txt
+          sed -i "s|FIREBASE_MESSAGING_SENDER_ID_PLACEHOLDER|${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}|g" firebase-inline.txt
+          sed -i "s|FIREBASE_APP_ID_PLACEHOLDER|${{ secrets.FIREBASE_APP_ID }}|g" firebase-inline.txt
+          sed -i "s|FIREBASE_MEASUREMENT_ID_PLACEHOLDER|${{ secrets.FIREBASE_MEASUREMENT_ID }}|g" firebase-inline.txt
+
+          # Replace the script tag in index.html with the inline config
+          sed -i '/<script src="firebase-config.js"><\/script>/r firebase-inline.txt' index.html
+          sed -i '/<script src="firebase-config.js"><\/script>/d' index.html
 
           echo "✅ Firebase config injected into index.html"
           echo "Verifying injection..."
-          grep -A 5 "const firebaseConfig" index.html || echo "⚠️  Config not found in index.html"
+          if grep -q "const firebaseConfig" index.html; then
+            echo "✅ Firebase config found in index.html"
+            grep -A 8 "const firebaseConfig" index.html | head -12
+          else
+            echo "❌ ERROR: Firebase config not found!"
+            exit 1
+          fi
 
       - name: Prepare deployment directory
         run: |
