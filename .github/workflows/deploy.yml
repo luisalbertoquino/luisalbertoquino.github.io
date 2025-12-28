@@ -32,6 +32,13 @@ jobs:
           const auth = firebase.auth();
           FIREBASE_EOF
 
+      - name: Verify firebase-config.js was created
+        run: |
+          echo "Checking if firebase-config.js exists..."
+          ls -lah firebase-config.js
+          echo "Content preview:"
+          head -5 firebase-config.js
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
