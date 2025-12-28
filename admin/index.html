@@ -92,7 +92,7 @@
                 </div>
                                                 <form id="profileForm" class="admin-form">
                     <!-- INFORMACIÓN BÁSICA -->
-                    <h3 style="margin-top: 0;"><i class="fas fa-id-card"></i> Información Básica</h3>
+                    <h3 style="margin-top: 0; margin-bottom: 1.5rem;"><i class="fas fa-id-card"></i> Información Básica</h3>
                     <div class="form-grid">
                         <div class="form-group">
                             <label>Nombre Completo *</label>
@@ -108,6 +108,10 @@
                         </div>
                         <div class="form-group full-width">
                             <label>Foto de Perfil (URL)</label>
+                            <div id="currentProfileImage" style="margin: 10px 0;">
+                                <img id="profileImagePreview" src="" alt="Foto de perfil" style="max-width: 150px; max-height: 150px; border-radius: 8px; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                <p id="noProfileImage" style="color: #999; font-size: 0.9em;">Sin foto cargada</p>
+                            </div>
                             <input type="text" name="profileImage" placeholder="https://luisalbertoquino.github.io/assets/files/images/profile.jpg" readonly style="display:none;">
                             <input type="file" id="profileImageUpload" accept="image/*" style="margin-top: 10px;">
                             <small style="color: #666; display: block; margin-top: 5px;">📤 Haz clic arriba para subir tu foto (se sube automáticamente a GitHub)</small>
@@ -115,7 +119,7 @@
                     </div>
 
                     <!-- HERO SECTION -->
-                    <h3 style="margin-top: 2rem;"><i class="fas fa-home"></i> Sección Hero (Portada)</h3>
+                    <h3 style="margin-top: 2rem; margin-bottom: 1.5rem;"><i class="fas fa-home"></i> Sección Hero (Portada)</h3>
                     <div class="form-grid">
                         <div class="form-group">
                             <label>Badge de Disponibilidad</label>
@@ -139,7 +143,7 @@
                     </div>
 
                     <!-- ESTADÍSTICAS -->
-                    <h3 style="margin-top: 2rem;"><i class="fas fa-chart-bar"></i> Estadísticas</h3>
+                    <h3 style="margin-top: 2rem; margin-bottom: 1.5rem;"><i class="fas fa-chart-bar"></i> Estadísticas</h3>
                     <div class="form-grid">
                         <div class="form-group">
                             <label>Años de Experiencia</label>
@@ -160,7 +164,7 @@
                     </div>
 
                     <!-- CONTACTO -->
-                    <h3 style="margin-top: 2rem;"><i class="fas fa-address-book"></i> Información de Contacto</h3>
+                    <h3 style="margin-top: 2rem; margin-bottom: 1.5rem;"><i class="fas fa-address-book"></i> Información de Contacto</h3>
                     <div class="form-grid">
                         <div class="form-group">
                             <label>Email *</label>
@@ -187,7 +191,7 @@
                     </div>
 
                     <!-- REDES SOCIALES -->
-                    <h3 style="margin-top: 2rem;"><i class="fas fa-share-alt"></i> Redes Sociales</h3>
+                    <h3 style="margin-top: 2rem; margin-bottom: 1.5rem;"><i class="fas fa-share-alt"></i> Redes Sociales</h3>
                     <div class="form-grid">
                         <div class="form-group">
                             <label><i class="fab fa-github"></i> GitHub</label>

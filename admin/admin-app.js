@@ -111,6 +111,17 @@ async function loadProfile() {
             const input = form.elements[key];
             if (input) input.value = profile[key] || '';
         });
+
+        // Mostrar preview de la imagen de perfil si existe
+        if (profile.profileImage) {
+            const preview = document.getElementById('profileImagePreview');
+            const noImage = document.getElementById('noProfileImage');
+            if (preview && noImage) {
+                preview.src = profile.profileImage;
+                preview.style.display = 'block';
+                noImage.style.display = 'none';
+            }
+        }
     }
 }
 

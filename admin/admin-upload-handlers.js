@@ -29,6 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelector('#profileForm input[name="profileImage"]').value = url;
 
+        // Mostrar preview de la imagen
+        const preview = document.getElementById('profileImagePreview');
+        const noImage = document.getElementById('noProfileImage');
+        if (preview && noImage) {
+          preview.src = url;
+          preview.style.display = 'block';
+          noImage.style.display = 'none';
+        }
+
         showUploadProgress('');
         alert(`✅ Foto de perfil subida correctamente\n\nURL: ${url}\n\n⏳ Espera 3-5 minutos para que GitHub Pages se actualice.`);
 
