@@ -132,6 +132,15 @@ async function loadProfile() {
                 adminPhoto.style.display = 'block';
             }
         }
+
+        // Mostrar CV actual si existe
+        if (profile.cvUrl) {
+            const cvInput = form.querySelector('input[name="cvUrl"]');
+            if (cvInput) {
+                cvInput.value = profile.cvUrl;
+                cvInput.style.display = 'block';
+            }
+        }
     }
 }
 
@@ -735,8 +744,31 @@ document.querySelector('#serviceForm select[name="icon"]').addEventListener('cha
 
 // ==================== FILES & CV ====================
 
-function loadFiles() {
-    // Implement file management logic
+async function loadFiles() {
+    // Cargar CV actual
+    const profile = await firebaseService.getProfile();
+    const currentCVDiv = document.getElementById('currentCV');
+
+    if (profile && profile.cvUrl) {
+        currentCVDiv.innerHTML = `
+            <div style="padding: 1rem; background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; margin-top: 1rem;">
+                <p style="margin: 0 0 0.5rem 0; color: #15803d; font-weight: 500;">
+                    <i class="fas fa-check-circle"></i> CV Actual:
+                </p>
+                <a href="${profile.cvUrl}" target="_blank" style="color: #2563eb; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Ver CV</span>
+                </a>
+            </div>
+        `;
+    } else {
+        currentCVDiv.innerHTML = `
+            <p style="color: #666; margin-top: 1rem; font-style: italic;">
+                <i class="fas fa-info-circle"></i> No hay CV cargado aún
+            </p>
+        `;
+    }
+
     setupFileUploads();
 }
 
