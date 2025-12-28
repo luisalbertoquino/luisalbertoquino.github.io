@@ -271,3 +271,4 @@ El sitio es completamente responsive:
 ---
 
 **¡Disfruta tu nuevo portafolio profesional! 🚀**
+
