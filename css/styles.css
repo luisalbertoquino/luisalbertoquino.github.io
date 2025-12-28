@@ -741,6 +741,13 @@ body {
     font-weight: bold;
 }
 
+.timeline-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    margin-top: 1rem;
+}
+
 /* ==================== PROJECTS GRID ==================== */
 .projects-grid {
     display: grid;

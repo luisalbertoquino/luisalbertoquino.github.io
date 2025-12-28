@@ -275,7 +275,11 @@ class PortfolioFirebaseLoader {
             <div class="project-image">
               <img src="${item.image}" alt="${item.name}" loading="lazy">
             </div>
-          ` : ''}
+          ` : `
+            <div class="project-image project-placeholder">
+              <i class="fas fa-folder-open"></i>
+            </div>
+          `}
           <div class="project-info">
             <h3>${item.name}</h3>
             <p>${item.description}</p>
@@ -407,20 +411,18 @@ class PortfolioFirebaseLoader {
    */
   async loadServices() {
     const services = await firebaseService.getServices();
+    const container = document.getElementById('servicesContainer');
 
-    if (services && services.length > 0) {
-      const servicesContainer = document.querySelector('#servicios .services-grid');
-      if (servicesContainer) {
-        servicesContainer.innerHTML = services.map(service => `
-          <div class="service-card">
-            <div class="service-icon">
-              <i class="${service.icon}"></i>
-            </div>
-            <h3>${service.title}</h3>
-            <p>${service.description}</p>
+    if (container && services && services.length > 0) {
+      container.innerHTML = services.map(service => `
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="${service.icon}"></i>
           </div>
-        `).join('');
-      }
+          <h3 class="service-title">${service.title}</h3>
+          <p class="service-description">${service.description}</p>
+        </div>
+      `).join('');
     }
   }
 
