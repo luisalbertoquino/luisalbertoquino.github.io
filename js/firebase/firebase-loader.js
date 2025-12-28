@@ -320,9 +320,15 @@ class PortfolioFirebaseLoader {
 
       container.innerHTML = certifications.map(item => `
         <div class="certification-card">
-          <div class="cert-icon">
-            <i class="fas fa-certificate"></i>
-          </div>
+          ${item.imageUrl ? `
+            <div class="cert-image">
+              <img src="${item.imageUrl}" alt="${item.name}" loading="lazy">
+            </div>
+          ` : `
+            <div class="cert-image cert-placeholder">
+              <i class="fas fa-certificate"></i>
+            </div>
+          `}
           <div class="cert-info">
             <h3>${item.name}</h3>
             <p class="cert-issuer">
@@ -333,12 +339,12 @@ class PortfolioFirebaseLoader {
             </p>
             <div class="cert-actions">
               ${item.fileUrl ? `
-                <a href="${item.fileUrl}" target="_blank" class="cert-link">
-                  <i class="fas fa-file-pdf"></i> Ver certificado
+                <a href="${item.fileUrl}" download class="cert-link cert-download">
+                  <i class="fas fa-download"></i> Descargar
                 </a>
               ` : ''}
               ${item.verificationUrl ? `
-                <a href="${item.verificationUrl}" target="_blank" class="cert-link">
+                <a href="${item.verificationUrl}" target="_blank" class="cert-link cert-verify">
                   <i class="fas fa-check-circle"></i> Verificar
                 </a>
               ` : ''}
@@ -359,9 +365,15 @@ class PortfolioFirebaseLoader {
     if (container && courses.length > 0) {
       container.innerHTML = courses.map(item => `
         <div class="certification-card course-card">
-          <div class="cert-icon">
-            <i class="fas fa-book-reader"></i>
-          </div>
+          ${item.imageUrl ? `
+            <div class="cert-image">
+              <img src="${item.imageUrl}" alt="${item.name}" loading="lazy">
+            </div>
+          ` : `
+            <div class="cert-image cert-placeholder">
+              <i class="fas fa-book-reader"></i>
+            </div>
+          `}
           <div class="cert-info">
             <h3>${item.name}</h3>
             <p class="cert-issuer">
@@ -379,8 +391,8 @@ class PortfolioFirebaseLoader {
             ` : ''}
             ${item.certificateUrl ? `
               <div class="cert-actions">
-                <a href="${item.certificateUrl}" target="_blank" class="cert-link">
-                  <i class="fas fa-file-pdf"></i> Ver certificado
+                <a href="${item.certificateUrl}" download class="cert-link cert-download">
+                  <i class="fas fa-download"></i> Descargar
                 </a>
               </div>
             ` : ''}
