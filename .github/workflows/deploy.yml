@@ -32,9 +32,29 @@ jobs:
         run: |
           echo "Injecting Firebase config directly into index.html..."
 
-          REPLACEMENT="    <script>\n    const firebaseConfig = {\n      apiKey: \"${{ secrets.FIREBASE_API_KEY }}\",\n      authDomain: \"${{ secrets.FIREBASE_AUTH_DOMAIN }}\",\n      projectId: \"${{ secrets.FIREBASE_PROJECT_ID }}\",\n      storageBucket: \"${{ secrets.FIREBASE_STORAGE_BUCKET }}\",\n      messagingSenderId: \"${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}\",\n      appId: \"${{ secrets.FIREBASE_APP_ID }}\",\n      measurementId: \"${{ secrets.FIREBASE_MEASUREMENT_ID }}\"\n    };\n    firebase.initializeApp(firebaseConfig);\n    const db = firebase.firestore();\n    const auth = firebase.auth();\n    console.log('Firebase initialized successfully');\n    <\/script>"
+          # Use a simpler approach - create temp file with replacement content
+          echo "    <script>" > /tmp/firebase_replacement.txt
+          echo "    const firebaseConfig = {" >> /tmp/firebase_replacement.txt
+          echo "      apiKey: \"${{ secrets.FIREBASE_API_KEY }}\"," >> /tmp/firebase_replacement.txt
+          echo "      authDomain: \"${{ secrets.FIREBASE_AUTH_DOMAIN }}\"," >> /tmp/firebase_replacement.txt
+          echo "      projectId: \"${{ secrets.FIREBASE_PROJECT_ID }}\"," >> /tmp/firebase_replacement.txt
+          echo "      storageBucket: \"${{ secrets.FIREBASE_STORAGE_BUCKET }}\"," >> /tmp/firebase_replacement.txt
+          echo "      messagingSenderId: \"${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}\"," >> /tmp/firebase_replacement.txt
+          echo "      appId: \"${{ secrets.FIREBASE_APP_ID }}\"," >> /tmp/firebase_replacement.txt
+          echo "      measurementId: \"${{ secrets.FIREBASE_MEASUREMENT_ID }}\"" >> /tmp/firebase_replacement.txt
+          echo "    };" >> /tmp/firebase_replacement.txt
+          echo "    firebase.initializeApp(firebaseConfig);" >> /tmp/firebase_replacement.txt
+          echo "    const db = firebase.firestore();" >> /tmp/firebase_replacement.txt
+          echo "    const auth = firebase.auth();" >> /tmp/firebase_replacement.txt
+          echo "    console.log('Firebase initialized successfully');" >> /tmp/firebase_replacement.txt
+          echo "    </script>" >> /tmp/firebase_replacement.txt
 
-          perl -i -pe "s|<script src=\"firebase-config\\.js\"></script>|$REPLACEMENT|g" index.html
+          echo "Replacement content:"
+          cat /tmp/firebase_replacement.txt
+
+          # Use awk to replace the line
+          awk '/<script src="firebase-config.js"><\/script>/{system("cat /tmp/firebase_replacement.txt");next}1' index.html > index.html.tmp
+          mv index.html.tmp index.html
 
           echo "Verifying injection..."
           if grep -q "const firebaseConfig" index.html; then
