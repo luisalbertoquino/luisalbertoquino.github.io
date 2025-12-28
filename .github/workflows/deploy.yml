@@ -39,9 +39,18 @@ jobs:
           echo "Content preview:"
           head -5 firebase-config.js
 
+      - name: Force add firebase-config.js (ignore gitignore)
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -f firebase-config.js
+          echo "firebase-config.js added to git staging (forced)"
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
           exclude_assets: '.github,scripts,nul,.claude'
+          force_orphan: true
+          enable_jekyll: false
