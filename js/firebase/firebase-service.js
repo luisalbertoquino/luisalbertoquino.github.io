@@ -5,7 +5,8 @@
 class FirebaseService {
   constructor() {
     this.db = firebase.firestore();
-    this.storage = firebase.storage();
+    // NO usamos Firebase Storage - archivos en GitHub
+    // this.storage = firebase.storage();
     this.auth = firebase.auth();
   }
 
@@ -262,58 +263,27 @@ class FirebaseService {
 
   // ==================== STORAGE - SUBIDA DE ARCHIVOS ====================
 
+  // ==================== ARCHIVOS (NO USADO - Archivos en GitHub) ====================
+
   /**
-   * Sube un archivo a Firebase Storage
-   * @param {File} file - Archivo a subir
-   * @param {string} folder - Carpeta destino (cv, certificates, images, etc.)
-   * @param {function} progressCallback - Callback para progreso (opcional)
-   * @returns {Promise<string>} URL pública del archivo
+   * NOTA: NO usamos Firebase Storage
+   * Los archivos se almacenan directamente en GitHub en assets/files/
+   * Ver: assets/files/README.md para instrucciones
    */
+
+  /*
+  // Método uploadFile deshabilitado - no usamos Firebase Storage
   async uploadFile(file, folder = 'files', progressCallback = null) {
-    try {
-      const fileName = `${Date.now()}_${file.name}`;
-      const storageRef = this.storage.ref(`${folder}/${fileName}`);
-      const uploadTask = storageRef.put(file);
-
-      return new Promise((resolve, reject) => {
-        uploadTask.on(
-          'state_changed',
-          (snapshot) => {
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            if (progressCallback) {
-              progressCallback(progress);
-            }
-          },
-          (error) => {
-            console.error('Error al subir archivo:', error);
-            reject(error);
-          },
-          async () => {
-            const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
-            resolve(downloadURL);
-          }
-        );
-      });
-    } catch (error) {
-      console.error('Error en uploadFile:', error);
-      throw error;
-    }
+    console.warn('Firebase Storage no está configurado. Usa assets/files/ en GitHub');
+    throw new Error('Firebase Storage no habilitado. Sube archivos a assets/files/ via Git');
   }
 
-  /**
-   * Elimina un archivo de Firebase Storage
-   * @param {string} fileUrl - URL del archivo a eliminar
-   */
+  // Método deleteFile deshabilitado - no usamos Firebase Storage
   async deleteFile(fileUrl) {
-    try {
-      const fileRef = this.storage.refFromURL(fileUrl);
-      await fileRef.delete();
-      return { success: true };
-    } catch (error) {
-      console.error('Error al eliminar archivo:', error);
-      return { success: false, error };
-    }
+    console.warn('Firebase Storage no está configurado. Gestiona archivos en assets/files/ via Git');
+    throw new Error('Firebase Storage no habilitado');
   }
+  */
 
   // ==================== AUTENTICACIÓN ====================
 
