@@ -108,8 +108,9 @@
                         </div>
                         <div class="form-group full-width">
                             <label>Foto de Perfil (URL)</label>
-                            <input type="text" name="profileImage" placeholder="https://luisalbertoquino.github.io/assets/files/images/profile.jpg">
-                            <small style="color: #666;">💡 Sube tu foto a assets/files/images/ y copia la URL aquí</small>
+                            <input type="text" name="profileImage" placeholder="https://luisalbertoquino.github.io/assets/files/images/profile.jpg" readonly>
+                            <input type="file" id="profileImageUpload" accept="image/*" style="margin-top: 10px;">
+                            <small style="color: #666; display: block; margin-top: 5px;">📤 Haz clic arriba para subir tu foto (se sube automáticamente a GitHub)</small>
                         </div>
                     </div>
 
@@ -179,8 +180,9 @@
                         </div>
                         <div class="form-group full-width">
                             <label>CV URL (PDF)</label>
-                            <input type="text" name="cvUrl" placeholder="https://luisalbertoquino.github.io/assets/files/cv/CV-Luis-Quino.pdf">
-                            <small style="color: #666;">💡 Sube tu CV a assets/files/cv/ y copia la URL aquí</small>
+                            <input type="text" name="cvUrl" placeholder="https://luisalbertoquino.github.io/assets/files/cv/CV-Luis-Quino.pdf" readonly>
+                            <input type="file" id="cvUpload" accept="application/pdf" style="margin-top: 10px;">
+                            <small style="color: #666; display: block; margin-top: 5px;">📤 Sube tu CV en PDF (máx 10MB)</small>
                         </div>
                     </div>
 

@@ -136,21 +136,6 @@ document.getElementById('profileForm').addEventListener('submit', async (e) => {
 });
 
 // Upload profile image
-document.getElementById('profileImageUpload').addEventListener('change', async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    try {
-        const url = await firebaseService.uploadFile(file, 'profile', (progress) => {
-            console.log('Upload progress:', progress);
-        });
-
-        document.querySelector('input[name="profileImage"]').value = url;
-        alert('✅ Imagen subida correctamente');
-    } catch (error) {
-        alert('❌ Error al subir imagen');
-    }
-});
 
 // ==================== EDUCACIÓN ====================
 
