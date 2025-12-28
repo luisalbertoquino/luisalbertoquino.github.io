@@ -226,3 +226,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log('✅ Manejadores de upload con GitHub API listos');
 });
+
+  // ==================== IMAGEN DE PORTADA DE CERTIFICACIONES ====================
+
+  const certificationImageUpload = document.getElementById('certificationImageUpload');
+  if (certificationImageUpload) {
+    const newCertImageUpload = certificationImageUpload.cloneNode(true);
+    certificationImageUpload.parentNode.replaceChild(newCertImageUpload, certificationImageUpload);
+
+    newCertImageUpload.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      try {
+        showUploadProgress('Subiendo imagen de portada...');
+
+        const url = await githubService.uploadImage(file, 'certificates', (progress) => {
+          const percent = Math.round(progress);
+          showUploadProgress('Subiendo... ' + percent + '%');
+        });
+
+        document.querySelector('#certificationForm input[name="imageUrl"]').value = url;
+
+        showUploadProgress('');
+        alert('Imagen de portada subida - URL: ' + url + ' - Espera 3-5 minutos.');
+
+      } catch (error) {
+        showUploadProgress('');
+        alert('Error: ' + error.message);
+        console.error(error);
+      }
+    });
+  }
