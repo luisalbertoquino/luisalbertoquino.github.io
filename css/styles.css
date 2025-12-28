@@ -1447,10 +1447,12 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     gap: 2rem;
+    flex-direction: column;
+    text-align: center;
 }
 
 .footer-text p {
