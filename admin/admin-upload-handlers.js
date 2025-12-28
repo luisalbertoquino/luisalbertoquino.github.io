@@ -114,7 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
           throw new Error('Solo se permiten archivos PDF o imágenes');
         }
 
-        document.querySelector('#certificationForm input[name="fileUrl"]').value = url;
+        const fileUrlInput = document.querySelector('#certificationForm input[name="fileUrl"]');
+        fileUrlInput.value = url;
+        fileUrlInput.style.display = 'block';
 
         showUploadProgress('');
         alert(`✅ Certificado subido correctamente\n\nURL: ${url}\n\n⏳ Espera 3-5 minutos.`);
@@ -154,7 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
           throw new Error('Solo PDF o imágenes');
         }
 
-        document.querySelector('#courseForm input[name="certificateUrl"]').value = url;
+        const certificateUrlInput = document.querySelector('#courseForm input[name="certificateUrl"]');
+        certificateUrlInput.value = url;
+        certificateUrlInput.style.display = 'block';
 
         showUploadProgress('');
         alert(`✅ Certificado subido\n\nURL: ${url}\n\n⏳ Espera 3-5 minutos.`);

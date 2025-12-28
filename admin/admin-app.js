@@ -777,19 +777,31 @@ function setupFileUploads() {
     const cvUploadArea = document.getElementById('cvUploadArea');
     const cvFileInput = document.getElementById('cvFileInput');
 
+    if (!cvUploadArea || !cvFileInput) return;
+
     cvUploadArea.addEventListener('click', () => cvFileInput.click());
 
     cvUploadArea.addEventListener('dragover', (e) => {
         e.preventDefault();
         cvUploadArea.style.borderColor = '#667eea';
+        cvUploadArea.style.background = '#f0f4ff';
+    });
+
+    cvUploadArea.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        cvUploadArea.style.borderColor = '#cbd5e0';
+        cvUploadArea.style.background = 'transparent';
     });
 
     cvUploadArea.addEventListener('drop', async (e) => {
         e.preventDefault();
         cvUploadArea.style.borderColor = '#cbd5e0';
+        cvUploadArea.style.background = 'transparent';
         const file = e.dataTransfer.files[0];
         if (file && file.type === 'application/pdf') {
             await uploadCV(file);
+        } else {
+            alert('❌ Solo se permiten archivos PDF');
         }
     });
 
@@ -797,65 +809,67 @@ function setupFileUploads() {
         const file = e.target.files[0];
         if (file) await uploadCV(file);
     });
-
-    // Images Upload
-    const imagesUploadArea = document.getElementById('imagesUploadArea');
-    const imagesFileInput = document.getElementById('imagesFileInput');
-
-    imagesUploadArea.addEventListener('click', () => imagesFileInput.click());
-
-    imagesFileInput.addEventListener('change', async (e) => {
-        const files = Array.from(e.target.files);
-        for (const file of files) {
-            await uploadImage(file);
-        }
-    });
 }
 
 async function uploadCV(file) {
+    if (file.type !== 'application/pdf') {
+        alert('❌ El archivo debe ser un PDF');
+        return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+        alert('❌ El archivo no debe superar 10MB');
+        return;
+    }
+
     try {
-        const url = await firebaseService.uploadFile(file, 'cv', (progress) => {
-            console.log('CV Upload progress:', progress);
+        // Mostrar progreso
+        const currentCVDiv = document.getElementById('currentCV');
+        currentCVDiv.innerHTML = `
+            <div style="padding: 1rem; background: #dbeafe; border: 1px solid #3b82f6; border-radius: 8px; margin-top: 1rem;">
+                <p style="margin: 0; color: #1e40af; font-weight: 500;">
+                    <i class="fas fa-spinner fa-spin"></i> Subiendo CV... Por favor espera
+                </p>
+            </div>
+        `;
+
+        // Usar GitHub Service para subir
+        const url = await githubService.uploadPDF(file, 'cv', (progress) => {
+            currentCVDiv.innerHTML = `
+                <div style="padding: 1rem; background: #dbeafe; border: 1px solid #3b82f6; border-radius: 8px; margin-top: 1rem;">
+                    <p style="margin: 0; color: #1e40af; font-weight: 500;">
+                        <i class="fas fa-spinner fa-spin"></i> Subiendo CV... ${Math.round(progress)}%
+                    </p>
+                </div>
+            `;
         });
 
-        // Update profile with CV URL
+        // Actualizar perfil con la URL del CV
         await firebaseService.updateProfile({ cvUrl: url });
 
-        document.getElementById('currentCV').innerHTML = `
-            <p><i class="fas fa-file-pdf"></i> CV cargado correctamente</p>
-            <a href="${url}" target="_blank">Ver CV</a>
+        currentCVDiv.innerHTML = `
+            <div style="padding: 1rem; background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; margin-top: 1rem;">
+                <p style="margin: 0 0 0.5rem 0; color: #15803d; font-weight: 500;">
+                    <i class="fas fa-check-circle"></i> CV Actual:
+                </p>
+                <a href="${url}" target="_blank" style="color: #2563eb; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Ver CV</span>
+                </a>
+            </div>
         `;
-        document.getElementById('currentCV').classList.add('show');
 
-        alert('✅ CV subido correctamente');
+        alert(`✅ CV subido correctamente\n\nURL: ${url}\n\n⏳ Espera 3-5 minutos para que GitHub Pages se actualice.`);
     } catch (error) {
-        alert('❌ Error al subir CV');
-    }
-}
-
-async function uploadImage(file) {
-    try {
-        const url = await firebaseService.uploadFile(file, 'images');
-
-        const imagesList = document.getElementById('imagesList');
-        const imageItem = document.createElement('div');
-        imageItem.className = 'image-item';
-        imageItem.innerHTML = `
-            <img src="${url}" alt="Uploaded image">
-            <button class="delete-img" onclick="deleteImage('${url}')">
-                <i class="fas fa-times"></i>
-            </button>
+        console.error('Error al subir CV:', error);
+        const currentCVDiv = document.getElementById('currentCV');
+        currentCVDiv.innerHTML = `
+            <div style="padding: 1rem; background: #fee; border: 1px solid #f88; border-radius: 8px; margin-top: 1rem;">
+                <p style="margin: 0; color: #c00; font-weight: 500;">
+                    <i class="fas fa-exclamation-circle"></i> Error: ${error.message}
+                </p>
+            </div>
         `;
-        imagesList.appendChild(imageItem);
-
-    } catch (error) {
-        alert('❌ Error al subir imagen');
+        alert(`❌ Error al subir CV: ${error.message}`);
     }
-}
-
-async function deleteImage(url) {
-    if (!confirm('¿Eliminar esta imagen?')) return;
-
-    await firebaseService.deleteFile(url);
-    loadFiles();
 }
