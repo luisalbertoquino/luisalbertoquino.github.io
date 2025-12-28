@@ -32,25 +32,26 @@ jobs:
           const auth = firebase.auth();
           FIREBASE_EOF
 
-      - name: Verify firebase-config.js was created
+      - name: Prepare deployment directory
         run: |
-          echo "Checking if firebase-config.js exists..."
-          ls -lah firebase-config.js
-          echo "Content preview:"
-          head -5 firebase-config.js
+          echo "Creating deployment directory..."
+          mkdir -p deploy
 
-      - name: Force add firebase-config.js (ignore gitignore)
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add -f firebase-config.js
-          echo "firebase-config.js added to git staging (forced)"
+          echo "Copying all files except excluded ones..."
+          rsync -av --exclude='.git' --exclude='.github' --exclude='scripts' --exclude='nul' --exclude='.claude' --exclude='deploy' . deploy/
+
+          echo "Copying firebase-config.js to deploy directory..."
+          cp firebase-config.js deploy/
+
+          echo "Verifying firebase-config.js in deploy directory..."
+          ls -lah deploy/firebase-config.js
+          echo "Content preview:"
+          head -5 deploy/firebase-config.js
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          exclude_assets: '.github,scripts,nul,.claude'
+          publish_dir: ./deploy
           force_orphan: true
           enable_jekyll: false
