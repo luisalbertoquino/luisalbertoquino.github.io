@@ -224,8 +224,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  console.log('✅ Manejadores de upload con GitHub API listos');
-});
 
   // ==================== IMAGEN DE PORTADA DE CERTIFICACIONES ====================
 
@@ -258,3 +256,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  console.log('✅ Manejadores de upload con GitHub API listos');
+});
