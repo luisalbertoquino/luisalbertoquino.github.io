@@ -20,15 +20,40 @@
 const migrationData = {
   // PERFIL GENERAL
   profile: {
+    // Información Básica
     fullName: "Luis Alberto Quino Manrique",
     title: "Ingeniero de Sistemas<br>Especialista en Desarrollo de Software",
-    description: "Ingeniero de Sistemas, Especialista en Desarrollo de Software, con formación técnica sólida en infraestructura, redes y seguridad, y experiencia profesional continua en desarrollo web y administración de plataformas institucionales.",
+    description: "Ingeniero de Sistemas, Especialista en Desarrollo de Software, con formación técnica sólida en infraestructura, redes y seguridad.",
+    profileImage: "", // Subir a: assets/files/images/profile.jpg
+
+    // Hero Section
+    heroBadge: "Disponible para proyectos",
+    heroBadgeVisible: true,
+    heroSubtitle: "Ingeniero de Sistemas Especialista en Desarrollo Web",
+    heroDescription: "Desarrollo soluciones web innovadoras combinando desarrollo full-stack con inteligencia artificial. Con más de 3 años de experiencia transformando ideas en productos digitales.",
+
+    // Estadísticas
+    yearsExperience: 3,
+    projectsCompleted: 50,
+    happyClients: 30,
+    totalCertifications: 10,
+
+    // Contacto
     email: "alberto.1203@hotmail.com",
     phone: "+57 304 248 3977",
-    location: "Neiva, Colombia",
+    location: "Neiva, Huila, Colombia",
     website: "https://luisalbertoquino.github.io",
-    profileImage: "", // Subir desde el panel admin
-    cvUrl: "" // Subir desde el panel admin
+    cvUrl: "", // Subir a: assets/files/cv/CV-Luis-Quino.pdf
+
+    // Redes Sociales
+    socialGithub: "https://github.com/luisalbertoquino",
+    socialLinkedin: "", // Agregar desde panel admin
+    socialWhatsapp: "573042483977",
+    socialCodepen: "", // Agregar desde panel admin
+    socialTwitter: "",
+    socialFacebook: "",
+    socialInstagram: "",
+    socialYoutube: ""
   },
 
   // EDUCACIÓN

@@ -41,10 +41,12 @@ class PortfolioFirebaseLoader {
     const profile = await firebaseService.getProfile();
 
     if (profile) {
+      // ==================== INFORMACIÓN BÁSICA ====================
+
       // Actualizar foto de perfil
       if (profile.profileImage) {
-        const profileImg = document.getElementById('profileImage');
-        if (profileImg) profileImg.src = profile.profileImage;
+        const profileImgs = document.querySelectorAll('#profileImage, .about-image img, .profile-avatar');
+        profileImgs.forEach(img => img.src = profile.profileImage);
       }
 
       // Actualizar nombre en hero
@@ -55,9 +57,50 @@ class PortfolioFirebaseLoader {
       const profileTitle = document.querySelector('.profile-title');
       if (profileTitle) profileTitle.innerHTML = profile.title || 'Ingeniero de Sistemas';
 
-      // Actualizar descripción hero
+      // ==================== HERO SECTION ====================
+
+      // Hero badge de disponibilidad
+      const heroBadge = document.querySelector('.hero-badge');
+      if (heroBadge) {
+        if (profile.heroBadgeVisible !== false && profile.heroBadge) {
+          heroBadge.textContent = profile.heroBadge;
+          heroBadge.style.display = 'inline-flex';
+        } else if (profile.heroBadgeVisible === false) {
+          heroBadge.style.display = 'none';
+        }
+      }
+
+      // Hero subtítulo
+      const heroSubtitle = document.querySelector('.hero-subtitle');
+      if (heroSubtitle) {
+        heroSubtitle.textContent = profile.heroSubtitle || profile.title || 'Ingeniero de Sistemas';
+      }
+
+      // Hero descripción larga
       const heroDescription = document.querySelector('.hero-description');
-      if (heroDescription) heroDescription.textContent = profile.description || '';
+      if (heroDescription) {
+        heroDescription.textContent = profile.heroDescription || profile.description || '';
+      }
+
+      // ==================== ESTADÍSTICAS ====================
+
+      const statNumbers = document.querySelectorAll('.stat-number');
+      if (statNumbers.length >= 4) {
+        if (profile.yearsExperience !== undefined) {
+          statNumbers[0].textContent = profile.yearsExperience + '+';
+        }
+        if (profile.projectsCompleted !== undefined) {
+          statNumbers[1].textContent = profile.projectsCompleted + '+';
+        }
+        if (profile.happyClients !== undefined) {
+          statNumbers[2].textContent = profile.happyClients + '+';
+        }
+        if (profile.totalCertifications !== undefined) {
+          statNumbers[3].textContent = profile.totalCertifications + '+';
+        }
+      }
+
+      // ==================== CONTACTO ====================
 
       // Actualizar información de contacto
       const infoValues = document.querySelectorAll('.info-value');
@@ -69,20 +112,77 @@ class PortfolioFirebaseLoader {
           const link = infoValues[3].querySelector('a');
           if (link) {
             link.href = profile.website;
-            link.textContent = profile.website.replace('https://', '');
+            link.textContent = profile.website.replace('https://', '').replace('http://', '');
           }
         }
       }
 
       // Actualizar CV para descarga
       if (profile.cvUrl) {
-        const btnDownload = document.querySelector('.btn-download');
-        if (btnDownload) {
-          btnDownload.onclick = () => {
+        const cvButtons = document.querySelectorAll('.btn-download, a[href="#cv"]');
+        cvButtons.forEach(btn => {
+          btn.onclick = (e) => {
+            e.preventDefault();
             window.open(profile.cvUrl, '_blank');
           };
-        }
+        });
       }
+
+      // ==================== REDES SOCIALES ====================
+
+      this.updateSocialLinks(profile);
+    }
+  }
+
+  /**
+   * Actualiza los enlaces de redes sociales
+   */
+  updateSocialLinks(profile) {
+    const socialData = {
+      github: { url: profile.socialGithub, icon: 'fa-github', title: 'GitHub' },
+      linkedin: { url: profile.socialLinkedin, icon: 'fa-linkedin', title: 'LinkedIn' },
+      whatsapp: {
+        url: profile.socialWhatsapp ? `https://wa.me/${profile.socialWhatsapp}` : null,
+        icon: 'fa-whatsapp',
+        title: 'WhatsApp'
+      },
+      codepen: { url: profile.socialCodepen, icon: 'fa-codepen', title: 'CodePen' },
+      twitter: { url: profile.socialTwitter, icon: 'fa-twitter', title: 'Twitter/X' },
+      facebook: { url: profile.socialFacebook, icon: 'fa-facebook', title: 'Facebook' },
+      instagram: { url: profile.socialInstagram, icon: 'fa-instagram', title: 'Instagram' },
+      youtube: { url: profile.socialYoutube, icon: 'fa-youtube', title: 'YouTube' }
+    };
+
+    // Construir HTML para redes sociales
+    let socialHTML = '';
+    Object.values(socialData).forEach(social => {
+      if (social.url) {
+        socialHTML += `
+          <a href="${social.url}" target="_blank" title="${social.title}" class="social-icon">
+            <i class="fab ${social.icon}"></i>
+          </a>
+        `;
+      }
+    });
+
+    // Actualizar redes sociales en header
+    const headerSocial = document.querySelector('.social-icons');
+    if (headerSocial && socialHTML) {
+      headerSocial.innerHTML = socialHTML;
+    }
+
+    // Actualizar redes sociales en footer
+    const footerSocial = document.querySelector('.footer-social');
+    if (footerSocial && socialHTML) {
+      footerSocial.innerHTML = socialHTML;
+    }
+
+    // Actualizar botón de WhatsApp en hero
+    if (profile.socialWhatsapp) {
+      const whatsappButtons = document.querySelectorAll('a[href*="wa.me"]');
+      whatsappButtons.forEach(btn => {
+        btn.href = `https://wa.me/${profile.socialWhatsapp}`;
+      });
     }
   }
 
