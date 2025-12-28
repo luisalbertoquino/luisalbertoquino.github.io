@@ -16,4 +16,3 @@ Thumbs.db
 # Firebase config (NEVER commit this!)
 nul
 .claude/
-firebase-config.js
