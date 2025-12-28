@@ -142,6 +142,23 @@ body {
     color: rgba(255,255,255,0.6);
 }
 
+.btn-home {
+    display: block;
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 13px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.btn-home:hover {
+    background: rgba(255,255,255,0.2);
+}
+
 .sidebar-nav {
     flex: 1;
     padding: 16px 0;
