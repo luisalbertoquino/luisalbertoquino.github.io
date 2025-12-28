@@ -55,6 +55,18 @@ jobs:
           echo "Creating deployment directory..."
           mkdir -p deploy
 
+          echo "Copying firebase-config.js FIRST..."
+          cp -v firebase-config.js deploy/firebase-config.js
+
+          echo "Verifying firebase-config.js was copied..."
+          if [ -f deploy/firebase-config.js ]; then
+            echo "✅ firebase-config.js copied successfully"
+            ls -lah deploy/firebase-config.js
+          else
+            echo "❌ ERROR: firebase-config.js copy failed!"
+            exit 1
+          fi
+
           echo "Copying all files except excluded ones..."
           rsync -av \
             --exclude='.git' \
@@ -65,30 +77,34 @@ jobs:
             --exclude='deploy' \
             --exclude='node_modules' \
             --exclude='*.md' \
-            --exclude='CHECKLIST-*.md' \
-            --exclude='COMO-*.md' \
-            --exclude='CONFIGURAR-*.md' \
-            --exclude='GUIA-*.md' \
-            --exclude='README*.md' \
-            --exclude='CAMBIOS-*.md' \
+            --exclude='*.txt' \
+            --exclude='*.sh' \
+            --exclude='*.bat' \
+            --exclude='CHECKLIST-*' \
+            --exclude='COMO-*' \
+            --exclude='CONFIGURAR-*' \
+            --exclude='GUIA-*' \
+            --exclude='README*' \
+            --exclude='CAMBIOS-*' \
+            --exclude='setup-*' \
+            --exclude='configurar-*' \
             . deploy/
 
-          echo "Copying firebase-config.js to deploy directory..."
-          cp -v firebase-config.js deploy/firebase-config.js
-
-          echo "Verifying firebase-config.js in deploy directory..."
+          echo "Final verification of firebase-config.js..."
           if [ -f deploy/firebase-config.js ]; then
-            echo "✅ firebase-config.js exists"
+            echo "✅ firebase-config.js exists in deploy directory"
             ls -lah deploy/firebase-config.js
             echo "Content preview:"
-            head -10 deploy/firebase-config.js
+            head -15 deploy/firebase-config.js
+            echo "File size:"
+            wc -c deploy/firebase-config.js
           else
-            echo "❌ ERROR: firebase-config.js not found!"
+            echo "❌ ERROR: firebase-config.js not found in deploy!"
             exit 1
           fi
 
-          echo "Listing deploy directory structure..."
-          ls -lah deploy/
+          echo "Listing deploy directory root files..."
+          ls -lah deploy/ | head -30
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
