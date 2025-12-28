@@ -32,32 +32,21 @@ jobs:
         run: |
           echo "Creating firebase-config.js with secrets..."
 
-          cat > firebase-config.js << 'FIREBASE_CONFIG_EOF'
-const firebaseConfig = {
-  apiKey: "FIREBASE_API_KEY_PLACEHOLDER",
-  authDomain: "FIREBASE_AUTH_DOMAIN_PLACEHOLDER",
-  projectId: "FIREBASE_PROJECT_ID_PLACEHOLDER",
-  storageBucket: "FIREBASE_STORAGE_BUCKET_PLACEHOLDER",
-  messagingSenderId: "FIREBASE_MESSAGING_SENDER_ID_PLACEHOLDER",
-  appId: "FIREBASE_APP_ID_PLACEHOLDER",
-  measurementId: "FIREBASE_MEASUREMENT_ID_PLACEHOLDER"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-const auth = firebase.auth();
-
-console.log('Firebase initialized successfully');
-FIREBASE_CONFIG_EOF
-
-          # Replace placeholders with actual secrets
-          sed -i "s/FIREBASE_API_KEY_PLACEHOLDER/${{ secrets.FIREBASE_API_KEY }}/g" firebase-config.js
-          sed -i "s/FIREBASE_AUTH_DOMAIN_PLACEHOLDER/${{ secrets.FIREBASE_AUTH_DOMAIN }}/g" firebase-config.js
-          sed -i "s/FIREBASE_PROJECT_ID_PLACEHOLDER/${{ secrets.FIREBASE_PROJECT_ID }}/g" firebase-config.js
-          sed -i "s|FIREBASE_STORAGE_BUCKET_PLACEHOLDER|${{ secrets.FIREBASE_STORAGE_BUCKET }}|g" firebase-config.js
-          sed -i "s/FIREBASE_MESSAGING_SENDER_ID_PLACEHOLDER/${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}/g" firebase-config.js
-          sed -i "s|FIREBASE_APP_ID_PLACEHOLDER|${{ secrets.FIREBASE_APP_ID }}|g" firebase-config.js
-          sed -i "s/FIREBASE_MEASUREMENT_ID_PLACEHOLDER/${{ secrets.FIREBASE_MEASUREMENT_ID }}/g" firebase-config.js
+          echo "const firebaseConfig = {" > firebase-config.js
+          echo "  apiKey: \"${{ secrets.FIREBASE_API_KEY }}\"," >> firebase-config.js
+          echo "  authDomain: \"${{ secrets.FIREBASE_AUTH_DOMAIN }}\"," >> firebase-config.js
+          echo "  projectId: \"${{ secrets.FIREBASE_PROJECT_ID }}\"," >> firebase-config.js
+          echo "  storageBucket: \"${{ secrets.FIREBASE_STORAGE_BUCKET }}\"," >> firebase-config.js
+          echo "  messagingSenderId: \"${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}\"," >> firebase-config.js
+          echo "  appId: \"${{ secrets.FIREBASE_APP_ID }}\"," >> firebase-config.js
+          echo "  measurementId: \"${{ secrets.FIREBASE_MEASUREMENT_ID }}\"" >> firebase-config.js
+          echo "};" >> firebase-config.js
+          echo "" >> firebase-config.js
+          echo "firebase.initializeApp(firebaseConfig);" >> firebase-config.js
+          echo "const db = firebase.firestore();" >> firebase-config.js
+          echo "const auth = firebase.auth();" >> firebase-config.js
+          echo "" >> firebase-config.js
+          echo "console.log('Firebase initialized successfully');" >> firebase-config.js
 
           echo "✅ firebase-config.js created successfully"
           echo "Content:"
