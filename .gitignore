@@ -1,0 +1,19 @@
+# Mac files
+.DS_Store
+
+# Windows files
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Firebase config (NEVER commit this!)
+nul
+.claude/
+firebase-config.js
