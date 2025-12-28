@@ -15,22 +15,44 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Verify Firebase Secrets
+        run: |
+          echo "Checking if Firebase secrets are configured..."
+          if [ -z "${{ secrets.FIREBASE_API_KEY }}" ]; then
+            echo "❌ ERROR: FIREBASE_API_KEY secret is not configured!"
+            exit 1
+          fi
+          if [ -z "${{ secrets.FIREBASE_PROJECT_ID }}" ]; then
+            echo "❌ ERROR: FIREBASE_PROJECT_ID secret is not configured!"
+            exit 1
+          fi
+          echo "✅ Firebase secrets appear to be configured"
+
       - name: Create firebase-config.js
         run: |
+          echo "Creating firebase-config.js with secrets..."
           cat > firebase-config.js << 'FIREBASE_EOF'
-          const firebaseConfig = {
-            apiKey: "${{ secrets.FIREBASE_API_KEY }}",
-            authDomain: "${{ secrets.FIREBASE_AUTH_DOMAIN }}",
-            projectId: "${{ secrets.FIREBASE_PROJECT_ID }}",
-            storageBucket: "${{ secrets.FIREBASE_STORAGE_BUCKET }}",
-            messagingSenderId: "${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}",
-            appId: "${{ secrets.FIREBASE_APP_ID }}",
-            measurementId: "${{ secrets.FIREBASE_MEASUREMENT_ID }}"
-          };
-          firebase.initializeApp(firebaseConfig);
-          const db = firebase.firestore();
-          const auth = firebase.auth();
-          FIREBASE_EOF
+// Firebase Configuration
+const firebaseConfig = {
+  apiKey: "${{ secrets.FIREBASE_API_KEY }}",
+  authDomain: "${{ secrets.FIREBASE_AUTH_DOMAIN }}",
+  projectId: "${{ secrets.FIREBASE_PROJECT_ID }}",
+  storageBucket: "${{ secrets.FIREBASE_STORAGE_BUCKET }}",
+  messagingSenderId: "${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}",
+  appId: "${{ secrets.FIREBASE_APP_ID }}",
+  measurementId: "${{ secrets.FIREBASE_MEASUREMENT_ID }}"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const auth = firebase.auth();
+
+console.log('✅ Firebase initialized successfully');
+FIREBASE_EOF
+
+          echo "firebase-config.js created"
+          cat firebase-config.js
 
       - name: Prepare deployment directory
         run: |
@@ -38,15 +60,39 @@ jobs:
           mkdir -p deploy
 
           echo "Copying all files except excluded ones..."
-          rsync -av --exclude='.git' --exclude='.github' --exclude='scripts' --exclude='nul' --exclude='.claude' --exclude='deploy' . deploy/
+          rsync -av \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='scripts' \
+            --exclude='nul' \
+            --exclude='.claude' \
+            --exclude='deploy' \
+            --exclude='node_modules' \
+            --exclude='*.md' \
+            --exclude='CHECKLIST-*.md' \
+            --exclude='COMO-*.md' \
+            --exclude='CONFIGURAR-*.md' \
+            --exclude='GUIA-*.md' \
+            --exclude='README*.md' \
+            --exclude='CAMBIOS-*.md' \
+            . deploy/
 
           echo "Copying firebase-config.js to deploy directory..."
-          cp firebase-config.js deploy/
+          cp -v firebase-config.js deploy/firebase-config.js
 
           echo "Verifying firebase-config.js in deploy directory..."
-          ls -lah deploy/firebase-config.js
-          echo "Content preview:"
-          head -5 deploy/firebase-config.js
+          if [ -f deploy/firebase-config.js ]; then
+            echo "✅ firebase-config.js exists"
+            ls -lah deploy/firebase-config.js
+            echo "Content preview:"
+            head -10 deploy/firebase-config.js
+          else
+            echo "❌ ERROR: firebase-config.js not found!"
+            exit 1
+          fi
+
+          echo "Listing deploy directory structure..."
+          ls -lah deploy/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
