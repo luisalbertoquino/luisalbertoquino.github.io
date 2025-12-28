@@ -1,9 +1,3 @@
-// ========================================
-// CONFIGURACIÓN DE FIREBASE
-// ========================================
-// ⚠️ IMPORTANTE: Este archivo NO debe subirse a GitHub
-// Ya está en .gitignore
-
 const firebaseConfig = {
   apiKey: "AIzaSyDtrF5Jybpvhk48xg1CnNN3_ylPVa37SYU",
   authDomain: "portafolio-web-92007.firebaseapp.com",
@@ -14,10 +8,8 @@ const firebaseConfig = {
   measurementId: "G-GYX3R10DWT"
 };
 
-// Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
-
-// Servicios de Firebase
 const db = firebase.firestore();
-// const storage = firebase.storage(); // NO usaremos Storage
 const auth = firebase.auth();
+
+console.log('✅ Firebase initialized successfully');
