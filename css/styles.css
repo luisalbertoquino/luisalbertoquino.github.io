@@ -824,8 +824,22 @@ body {
     transform: scale(1.05);
 }
 
-.project-content {
-    padding: 1.5rem;
+.project-content, .project-info {
+    padding: 1.75rem;
+}
+
+.project-info h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    margin-top: 0;
+}
+
+.project-info p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.6;
 }
 
 .project-title {
