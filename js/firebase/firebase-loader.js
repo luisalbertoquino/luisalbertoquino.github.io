@@ -140,6 +140,12 @@ class PortfolioFirebaseLoader {
         }
       }
 
+      // Actualizar intereses
+      const interestsElement = document.querySelector('.info-interests');
+      if (interestsElement && profile.interests) {
+        interestsElement.textContent = profile.interests;
+      }
+
       // Actualizar CV para descarga
       if (profile.cvUrl) {
         const cvButtons = document.querySelectorAll('.btn-download, a[href="#cv"]');
