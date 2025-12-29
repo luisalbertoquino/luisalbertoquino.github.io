@@ -525,6 +525,26 @@
                                 <input type="date" name="completedDate" required>
                             </div>
                             <div class="form-group full-width">
+                                <label>Icono del Curso (Font Awesome)</label>
+                                <select name="icon">
+                                    <option value="">-- Selecciona un icono --</option>
+                                    <option value="fas fa-graduation-cap">🎓 Graduación (fa-graduation-cap)</option>
+                                    <option value="fas fa-certificate">📜 Certificado (fa-certificate)</option>
+                                    <option value="fas fa-book">📚 Libro (fa-book)</option>
+                                    <option value="fas fa-code">💻 Código (fa-code)</option>
+                                    <option value="fas fa-laptop-code">💻 Laptop Código (fa-laptop-code)</option>
+                                    <option value="fas fa-database">🗄️ Base de Datos (fa-database)</option>
+                                    <option value="fas fa-mobile-alt">📱 Móvil (fa-mobile-alt)</option>
+                                    <option value="fas fa-paint-brush">🎨 Diseño (fa-paint-brush)</option>
+                                    <option value="fas fa-chart-line">📈 Analíticas (fa-chart-line)</option>
+                                    <option value="fas fa-rocket">🚀 Rocket (fa-rocket)</option>
+                                    <option value="fas fa-brain">🧠 AI/ML (fa-brain)</option>
+                                    <option value="fas fa-server">🖥️ Servidor (fa-server)</option>
+                                    <option value="fas fa-cloud">☁️ Nube (fa-cloud)</option>
+                                </select>
+                                <small style="color: #666; display: block; margin-top: 5px;">💡 Ícono que se muestra en la tarjeta del curso</small>
+                            </div>
+                            <div class="form-group full-width">
                                 <label>Certificado (PDF/Imagen)</label>
                                 <input type="file" id="courseFileUpload" accept=".pdf,image/*">
                                 <input type="text" name="certificateUrl" placeholder="URL del certificado" readonly style="display:none;">

@@ -549,7 +549,7 @@ async function loadCourses() {
     container.innerHTML = courses.map(item => `
         <div class="item-card">
             <div class="item-info">
-                <h4>${item.name}</h4>
+                <h4>${item.icon ? `<i class="${item.icon}"></i>` : '<i class="fas fa-graduation-cap"></i>'} ${item.name}</h4>
                 <p><i class="fas fa-graduation-cap"></i> ${item.platform}</p>
                 <p><i class="fas fa-calendar"></i> ${item.completedDate}</p>
                 ${item.skills ? `
@@ -572,9 +572,14 @@ async function loadCourses() {
 
 function showCourseForm(id = null) {
     document.getElementById('courseFormModal').style.display = 'flex';
+    const form = document.getElementById('courseForm');
     if (!id) {
-        document.getElementById('courseForm').reset();
+        form.reset();
         document.getElementById('courseFormTitle').textContent = 'Nuevo Curso';
+    } else {
+        // Establecer el ID en el campo hidden para edición
+        const idInput = form.querySelector('input[name="id"]');
+        if (idInput) idInput.value = id;
     }
 }
 
