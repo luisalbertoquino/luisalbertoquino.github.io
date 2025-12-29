@@ -199,9 +199,13 @@ async function loadEducation() {
 
 function showEducationForm(id = null) {
     document.getElementById('educationFormModal').style.display = 'flex';
+    const form = document.getElementById('educationForm');
     if (!id) {
-        document.getElementById('educationForm').reset();
+        form.reset();
         document.getElementById('educationFormTitle').textContent = 'Nueva Educación';
+    } else {
+        const idInput = form.querySelector('input[name="id"]');
+        if (idInput) idInput.value = id;
     }
 }
 
@@ -287,9 +291,13 @@ async function loadExperience() {
 
 function showExperienceForm(id = null) {
     document.getElementById('experienceFormModal').style.display = 'flex';
+    const form = document.getElementById('experienceForm');
     if (!id) {
-        document.getElementById('experienceForm').reset();
+        form.reset();
         document.getElementById('experienceFormTitle').textContent = 'Nueva Experiencia';
+    } else {
+        const idInput = form.querySelector('input[name="id"]');
+        if (idInput) idInput.value = id;
     }
 }
 
@@ -374,9 +382,13 @@ async function loadProjects() {
 
 function showProjectForm(id = null) {
     document.getElementById('projectFormModal').style.display = 'flex';
+    const form = document.getElementById('projectForm');
     if (!id) {
-        document.getElementById('projectForm').reset();
+        form.reset();
         document.getElementById('projectFormTitle').textContent = 'Nuevo Proyecto';
+    } else {
+        const idInput = form.querySelector('input[name="id"]');
+        if (idInput) idInput.value = id;
     }
 }
 
@@ -471,9 +483,13 @@ async function loadCertifications() {
 
 function showCertificationForm(id = null) {
     document.getElementById('certificationFormModal').style.display = 'flex';
+    const form = document.getElementById('certificationForm');
     if (!id) {
-        document.getElementById('certificationForm').reset();
+        form.reset();
         document.getElementById('certificationFormTitle').textContent = 'Nueva Certificación';
+    } else {
+        const idInput = form.querySelector('input[name="id"]');
+        if (idInput) idInput.value = id;
     }
 }
 
@@ -680,10 +696,14 @@ async function loadServices() {
 
 function showServiceForm(id = null) {
     document.getElementById('serviceFormModal').style.display = 'flex';
+    const form = document.getElementById('serviceForm');
     if (!id) {
-        document.getElementById('serviceForm').reset();
+        form.reset();
         document.getElementById('serviceFormTitle').textContent = 'Nuevo Servicio';
         document.getElementById('iconPreview').className = 'fas fa-question';
+    } else {
+        const idInput = form.querySelector('input[name="id"]');
+        if (idInput) idInput.value = id;
     }
 }
 
