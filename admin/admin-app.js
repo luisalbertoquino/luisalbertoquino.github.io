@@ -386,6 +386,8 @@ function showProjectForm(id = null) {
     if (!id) {
         form.reset();
         document.getElementById('projectFormTitle').textContent = 'Nuevo Proyecto';
+        // Limpiar vista previa de imagen
+        document.getElementById('projectImagePreview').style.display = 'none';
     } else {
         const idInput = form.querySelector('input[name="id"]');
         if (idInput) idInput.value = id;
@@ -406,6 +408,15 @@ async function editProject(id) {
             const input = form.elements[key];
             if (input) input.value = item[key] || '';
         });
+
+        // Mostrar imagen precargada si existe
+        const imagePreview = document.getElementById('projectImagePreview');
+        if (item.image) {
+            imagePreview.querySelector('img').src = item.image;
+            imagePreview.style.display = 'block';
+        } else {
+            imagePreview.style.display = 'none';
+        }
 
         document.getElementById('projectFormTitle').textContent = 'Editar Proyecto';
         showProjectForm(id);
@@ -487,6 +498,9 @@ function showCertificationForm(id = null) {
     if (!id) {
         form.reset();
         document.getElementById('certificationFormTitle').textContent = 'Nueva Certificación';
+        // Limpiar vistas previas
+        document.getElementById('certificationImagePreview').style.display = 'none';
+        document.getElementById('certificationFilePreview').style.display = 'none';
     } else {
         const idInput = form.querySelector('input[name="id"]');
         if (idInput) idInput.value = id;
@@ -507,6 +521,24 @@ async function editCertification(id) {
             const input = form.elements[key];
             if (input) input.value = item[key] || '';
         });
+
+        // Mostrar imagen de portada precargada si existe
+        const imagePreview = document.getElementById('certificationImagePreview');
+        if (item.imageUrl) {
+            imagePreview.querySelector('img').src = item.imageUrl;
+            imagePreview.style.display = 'block';
+        } else {
+            imagePreview.style.display = 'none';
+        }
+
+        // Mostrar archivo PDF precargado si existe
+        const filePreview = document.getElementById('certificationFilePreview');
+        if (item.fileUrl) {
+            filePreview.querySelector('a').href = item.fileUrl;
+            filePreview.style.display = 'block';
+        } else {
+            filePreview.style.display = 'none';
+        }
 
         document.getElementById('certificationFormTitle').textContent = 'Editar Certificación';
         showCertificationForm(id);
@@ -592,6 +624,8 @@ function showCourseForm(id = null) {
     if (!id) {
         form.reset();
         document.getElementById('courseFormTitle').textContent = 'Nuevo Curso';
+        // Limpiar vista previa de archivo
+        document.getElementById('courseFilePreview').style.display = 'none';
     } else {
         // Establecer el ID en el campo hidden para edición
         const idInput = form.querySelector('input[name="id"]');
@@ -613,6 +647,15 @@ async function editCourse(id) {
             const input = form.elements[key];
             if (input) input.value = item[key] || '';
         });
+
+        // Mostrar certificado precargado si existe
+        const filePreview = document.getElementById('courseFilePreview');
+        if (item.certificateUrl) {
+            filePreview.querySelector('a').href = item.certificateUrl;
+            filePreview.style.display = 'block';
+        } else {
+            filePreview.style.display = 'none';
+        }
 
         document.getElementById('courseFormTitle').textContent = 'Editar Curso';
         showCourseForm(id);
