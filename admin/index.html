@@ -421,6 +421,9 @@
                                 <label>Imagen de Portada</label>
                                 <input type="file" id="projectImageUpload" accept="image/*">
                                 <input type="text" name="image" placeholder="URL de la imagen" readonly style="display:none;">
+                                <div id="projectImagePreview" style="margin-top: 10px; display: none;">
+                                    <img src="" alt="Preview" style="max-width: 200px; max-height: 200px; border-radius: 8px; border: 2px solid #e0e0e0;">
+                                </div>
                             </div>
                             <div class="form-group full-width">
                                 <label>Tecnologías (separadas por coma)</label>
@@ -474,11 +477,20 @@
                                 <label>Imagen de Portada (opcional)</label>
                                 <input type="file" id="certificationImageUpload" accept="image/*">
                                 <input type="text" name="imageUrl" placeholder="URL de la imagen de portada" readonly style="display:none;">
+                                <div id="certificationImagePreview" style="margin-top: 10px; display: none;">
+                                    <img src="" alt="Preview" style="max-width: 200px; max-height: 200px; border-radius: 8px; border: 2px solid #e0e0e0;">
+                                </div>
                             </div>
                             <div class="form-group full-width">
                                 <label>Archivo del Certificado (PDF/Imagen)</label>
                                 <input type="file" id="certificationFileUpload" accept=".pdf,image/*">
                                 <input type="text" name="fileUrl" placeholder="URL del archivo" readonly style="display:none;">
+                                <div id="certificationFilePreview" style="margin-top: 10px; display: none;">
+                                    <a href="" target="_blank" style="color: #6366f1; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                                        <i class="fas fa-file-pdf" style="font-size: 1.5rem;"></i>
+                                        <span>Ver archivo actual</span>
+                                    </a>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>URL de Verificación</label>
@@ -548,6 +560,12 @@
                                 <label>Certificado (PDF/Imagen)</label>
                                 <input type="file" id="courseFileUpload" accept=".pdf,image/*">
                                 <input type="text" name="certificateUrl" placeholder="URL del certificado" readonly style="display:none;">
+                                <div id="courseFilePreview" style="margin-top: 10px; display: none;">
+                                    <a href="" target="_blank" style="color: #6366f1; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                                        <i class="fas fa-file-pdf" style="font-size: 1.5rem;"></i>
+                                        <span>Ver certificado actual</span>
+                                    </a>
+                                </div>
                             </div>
                             <div class="form-group full-width">
                                 <label>Habilidades Aprendidas (separadas por coma)</label>
