@@ -147,13 +147,18 @@ class PortfolioFirebaseLoader {
         interestsElement.textContent = profile.interests;
       }
 
-      // Actualizar CV para descarga
+      // Actualizar CV para descarga - usar el modal en lugar de nueva pestaña
       if (profile.cvUrl) {
         const cvButtons = document.querySelectorAll('.btn-download, a[href="#cv"]');
         cvButtons.forEach(btn => {
           btn.onclick = (e) => {
             e.preventDefault();
-            window.open(profile.cvUrl, '_blank');
+            if (typeof openPDFModal === 'function') {
+              openPDFModal(profile.cvUrl, 'Curriculum Vitae');
+            } else {
+              window.open(profile.cvUrl, '_blank');
+            }
+            return false;
           };
         });
       }
