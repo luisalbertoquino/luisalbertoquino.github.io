@@ -408,7 +408,7 @@ class PortfolioFirebaseLoader {
             </div>
           ` : `
             <div class="cert-image cert-placeholder">
-              <i class="fas fa-book-reader"></i>
+              <i class="${item.icon || 'fas fa-graduation-cap'}"></i>
             </div>
           `}
           <div class="cert-info">
