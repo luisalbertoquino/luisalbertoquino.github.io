@@ -81,12 +81,17 @@ jobs:
             --exclude='configurar-*' \
             . deploy/
 
+          echo "Ensuring .nojekyll exists..."
+          touch deploy/.nojekyll
+
           echo "✅ Files copied to deploy directory"
           echo "Verifying firebase-config.js exists in deploy..."
           if [ -f deploy/firebase-config.js ]; then
             echo "✅ firebase-config.js found in deploy directory"
             echo "File size:"
             ls -lh deploy/firebase-config.js
+            echo "Content preview:"
+            head -5 deploy/firebase-config.js
           else
             echo "❌ ERROR: firebase-config.js not found in deploy!"
             exit 1
@@ -100,7 +105,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./deploy
-          force_orphan: true
+          force_orphan: false
           enable_jekyll: false
           keep_files: false
-          commit_message: 'Deploy with inline Firebase config'
+          commit_message: 'Deploy with Firebase config file'
