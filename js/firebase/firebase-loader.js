@@ -69,7 +69,8 @@ class PortfolioFirebaseLoader {
       const heroBadge = document.querySelector('.hero-badge');
       if (heroBadge) {
         if (profile.heroBadgeVisible !== false && profile.heroBadge) {
-          heroBadge.textContent = profile.heroBadge;
+          // Preservar el ícono y actualizar solo el texto
+          heroBadge.innerHTML = `<i class="fas fa-circle"></i>${profile.heroBadge}`;
           heroBadge.style.display = 'inline-flex';
         } else if (profile.heroBadgeVisible === false) {
           heroBadge.style.display = 'none';
