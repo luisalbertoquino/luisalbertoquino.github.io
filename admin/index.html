@@ -112,8 +112,20 @@
                             <label>Descripción Breve *</label>
                             <textarea name="description" rows="2" required placeholder="Descripción corta para redes sociales"></textarea>
                         </div>
+                        <div class="form-group">
+                            <label>Mensaje de Disponibilidad</label>
+                            <input type="text" name="heroBadge" placeholder="Disponible para proyectos">
+                            <small style="color: #666; display: block; margin-top: 5px;">💡 Ejemplos: "Disponible para proyectos", "No disponible actualmente"</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Mostrar Badge de Disponibilidad</label>
+                            <select name="heroBadgeVisible">
+                                <option value="true">Sí, mostrar</option>
+                                <option value="false">No, ocultar</option>
+                            </select>
+                        </div>
                         <div class="form-group full-width">
-                            <label>Foto de Perfil (URL)</label>
+                            <label>Foto de Perfil</label>
                             <div id="currentProfileImage" style="margin: 10px 0;">
                                 <img id="profileImagePreview" src="" alt="Foto de perfil" style="max-width: 150px; max-height: 150px; border-radius: 8px; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                                 <p id="noProfileImage" style="color: #999; font-size: 0.9em;">Sin foto cargada</p>
@@ -124,28 +136,18 @@
                         </div>
                     </div>
 
-                    <!-- HERO SECTION -->
-                    <h3 style="margin-top: 2rem; margin-bottom: 1.5rem;"><i class="fas fa-home"></i> Sección Hero (Portada)</h3>
+                    <!-- SOBRE MÍ -->
+                    <h3 style="margin-top: 2rem; margin-bottom: 1.5rem;"><i class="fas fa-user-circle"></i> Sobre Mí</h3>
                     <div class="form-grid">
-                        <div class="form-group">
-                            <label>Mensaje de Disponibilidad</label>
-                            <input type="text" name="heroBadge" placeholder="Disponible para proyectos">
-                            <small style="color: #666; display: block; margin-top: 5px;">💡 Puedes escribir: "Disponible para proyectos", "No disponible actualmente", etc.</small>
-                        </div>
-                        <div class="form-group">
-                            <label>Mostrar Badge</label>
-                            <select name="heroBadgeVisible">
-                                <option value="true">Sí</option>
-                                <option value="false">No</option>
-                            </select>
-                        </div>
                         <div class="form-group full-width">
-                            <label>Subtítulo Hero</label>
+                            <label>Título de la Sección</label>
                             <input type="text" name="heroSubtitle" placeholder="Ingeniero de Sistemas Especialista en Desarrollo Web">
+                            <small style="color: #666; display: block; margin-top: 5px;">💡 Este es el título que aparece en el cuadro "Sobre Mí"</small>
                         </div>
                         <div class="form-group full-width">
-                            <label>Descripción Hero (Larga)</label>
-                            <textarea name="heroDescription" rows="3" placeholder="Desarrollo soluciones web innovadoras combinando desarrollo full-stack con inteligencia artificial..."></textarea>
+                            <label>Texto de Presentación</label>
+                            <textarea name="heroDescription" rows="4" placeholder="Desarrollo soluciones web innovadoras combinando desarrollo full-stack con inteligencia artificial..."></textarea>
+                            <small style="color: #666; display: block; margin-top: 5px;">💡 Esta es tu presentación personal que aparece en el cuadro "Sobre Mí"</small>
                         </div>
                     </div>
 
