@@ -313,14 +313,20 @@ function downloadPDF() {
         });
 }
 
-function openPDFModal(pdfUrl) {
+function openPDFModal(pdfUrl, title = 'Curriculum Vitae') {
     const modal = document.getElementById('pdfModal');
     const iframe = document.getElementById('pdfViewer');
     const downloadLink = document.getElementById('pdfDownloadLink');
+    const modalTitle = modal.querySelector('.pdf-modal-header h3');
 
     // Configurar el iframe y el enlace de descarga
     iframe.src = pdfUrl;
     downloadLink.href = pdfUrl;
+
+    // Actualizar título
+    if (modalTitle) {
+        modalTitle.innerHTML = `<i class="fas fa-file-pdf"></i> ${title}`;
+    }
 
     // Mostrar el modal
     modal.style.display = 'flex';
@@ -328,6 +334,11 @@ function openPDFModal(pdfUrl) {
     // Prevenir scroll del body
     document.body.style.overflow = 'hidden';
 }
+
+// Función global para abrir certificado en modal (usada desde firebase-loader.js)
+window.openCertificate = function(url, title) {
+    openPDFModal(url, title || 'Certificado');
+};
 
 function closePDFModal() {
     const modal = document.getElementById('pdfModal');
