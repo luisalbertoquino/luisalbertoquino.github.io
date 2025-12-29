@@ -294,32 +294,61 @@ document.addEventListener('keydown', (e) => {
 // ==================== PDF DOWNLOAD ====================
 function downloadPDF() {
     // Enlace directo a tu archivo PDF
-    // Coloca tu CV en: assets/cv-luis-quino.pdf
     const pdfUrl = 'assets/cv-luis-quino.pdf';
-    
-    // Intenta abrir el PDF
-    const link = document.createElement('a');
-    link.href = pdfUrl;
-    link.download = 'CV-Luis-Alberto-Quino-Manrique.pdf';
-    link.target = '_blank';
-    
+
     // Verificar si el archivo existe
     fetch(pdfUrl, { method: 'HEAD' })
         .then(response => {
             if (response.ok) {
-                link.click();
+                // Abrir modal con visor de PDF
+                openPDFModal(pdfUrl);
             } else {
-                // Si no existe el PDF, usar impresión del navegador como alternativa
-                alert('Coloca tu CV en PDF en la carpeta: assets/cv-luis-quino.pdf\n\nMientras tanto, se abrirá la vista de impresión.');
-                window.print();
+                // Si no existe el PDF, mostrar mensaje
+                alert('El CV aún no está disponible. Por favor, sube tu CV en el panel de administración.');
             }
         })
         .catch(() => {
-            // Si hay error, usar impresión del navegador
-            alert('Coloca tu CV en PDF en la carpeta: assets/cv-luis-quino.pdf\n\nMientras tanto, se abrirá la vista de impresión.');
-            window.print();
+            // Si hay error, mostrar mensaje
+            alert('El CV aún no está disponible. Por favor, sube tu CV en el panel de administración.');
         });
 }
+
+function openPDFModal(pdfUrl) {
+    const modal = document.getElementById('pdfModal');
+    const iframe = document.getElementById('pdfViewer');
+    const downloadLink = document.getElementById('pdfDownloadLink');
+
+    // Configurar el iframe y el enlace de descarga
+    iframe.src = pdfUrl;
+    downloadLink.href = pdfUrl;
+
+    // Mostrar el modal
+    modal.style.display = 'flex';
+
+    // Prevenir scroll del body
+    document.body.style.overflow = 'hidden';
+}
+
+function closePDFModal() {
+    const modal = document.getElementById('pdfModal');
+    const iframe = document.getElementById('pdfViewer');
+
+    // Ocultar el modal
+    modal.style.display = 'none';
+
+    // Limpiar el iframe
+    iframe.src = '';
+
+    // Restaurar scroll del body
+    document.body.style.overflow = 'auto';
+}
+
+// Cerrar modal con tecla ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closePDFModal();
+    }
+});
 
 // ==================== STATS COUNTER ====================
 function updateStats() {
