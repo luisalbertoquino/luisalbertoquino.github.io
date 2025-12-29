@@ -131,7 +131,14 @@ async function loadProfile() {
         }
 
         // Mostrar CV actual si existe
-        if (profile.cvUrl) {
+        const currentCVDiv = document.getElementById('currentCV');
+        if (profile.cvUrl && currentCVDiv) {
+            currentCVDiv.innerHTML = `
+                <p style="color: green; margin-bottom: 5px;"><i class="fas fa-file-pdf"></i> CV cargado correctamente</p>
+                <a href="${profile.cvUrl}" target="_blank" style="color: #2563eb; text-decoration: none;">
+                    <i class="fas fa-external-link-alt"></i> Ver CV actual
+                </a>
+            `;
             const cvInput = form.querySelector('input[name="cvUrl"]');
             if (cvInput) {
                 cvInput.value = profile.cvUrl;
