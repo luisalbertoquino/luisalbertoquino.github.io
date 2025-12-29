@@ -383,16 +383,21 @@ body {
 
 .hero-badge i {
     color: #10b981;
-    font-size: 0.5em;
-    animation: pulse 2s ease-in-out infinite;
+    font-size: 0.6em;
+    animation: statusPulse 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 3px rgba(16, 185, 129, 0.8));
 }
 
-@keyframes pulse {
+@keyframes statusPulse {
     0%, 100% {
         opacity: 1;
+        transform: scale(1);
+        filter: drop-shadow(0 0 3px rgba(16, 185, 129, 0.8));
     }
     50% {
-        opacity: 0.5;
+        opacity: 0.6;
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 6px rgba(16, 185, 129, 1));
     }
 }
 
