@@ -35,6 +35,9 @@ document.getElementById('btnLogout').addEventListener('click', async () => {
 
 // Check auth state
 firebaseService.onAuthStateChanged((user) => {
+    // Ocultar pantalla de carga
+    document.getElementById('authLoadingScreen').style.display = 'none';
+
     if (user) {
         currentUser = user;
         showDashboard();
