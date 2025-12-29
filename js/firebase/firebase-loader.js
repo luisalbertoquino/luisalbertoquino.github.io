@@ -88,6 +88,23 @@ class PortfolioFirebaseLoader {
         heroDescription.textContent = profile.heroDescription || profile.description || '';
       }
 
+      // ==================== SOBRE MÍ - 3 PÁRRAFOS ====================
+
+      const aboutParagraph1 = document.querySelector('.about-paragraph-1');
+      if (aboutParagraph1 && profile.aboutParagraph1) {
+        aboutParagraph1.textContent = profile.aboutParagraph1;
+      }
+
+      const aboutParagraph2 = document.querySelector('.about-paragraph-2');
+      if (aboutParagraph2 && profile.aboutParagraph2) {
+        aboutParagraph2.innerHTML = profile.aboutParagraph2;
+      }
+
+      const aboutParagraph3 = document.querySelector('.about-paragraph-3');
+      if (aboutParagraph3 && profile.aboutParagraph3) {
+        aboutParagraph3.textContent = profile.aboutParagraph3;
+      }
+
       // ==================== ESTADÍSTICAS ====================
 
       const statNumbers = document.querySelectorAll('.stat-number');
