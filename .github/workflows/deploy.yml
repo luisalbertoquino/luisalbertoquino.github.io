@@ -61,6 +61,7 @@ jobs:
           rsync -av \
             --exclude='.git' \
             --exclude='.github' \
+            --exclude='.gitignore' \
             --exclude='scripts' \
             --exclude='nul' \
             --exclude='.claude' \
