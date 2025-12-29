@@ -377,8 +377,8 @@ class PortfolioFirebaseLoader {
             </p>
             <div class="cert-actions">
               ${item.fileUrl ? `
-                <a href="${item.fileUrl}" download class="cert-link cert-download">
-                  <i class="fas fa-download"></i> Descargar
+                <a href="javascript:void(0)" onclick="openCertificate('${item.fileUrl}', '${item.name.replace(/'/g, "\\'")}'); return false;" class="cert-link cert-download">
+                  <i class="fas fa-eye"></i> Ver Certificado
                 </a>
               ` : ''}
               ${item.verificationUrl ? `
@@ -429,8 +429,8 @@ class PortfolioFirebaseLoader {
             ` : ''}
             ${item.certificateUrl ? `
               <div class="cert-actions">
-                <a href="${item.certificateUrl}" download class="cert-link cert-download">
-                  <i class="fas fa-download"></i> Descargar
+                <a href="javascript:void(0)" onclick="openCertificate('${item.certificateUrl}', '${item.name.replace(/'/g, "\\'")}'); return false;" class="cert-link cert-download">
+                  <i class="fas fa-eye"></i> Ver Certificado
                 </a>
               </div>
             ` : ''}
