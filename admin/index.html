@@ -80,9 +80,6 @@
                 <a href="#" class="nav-link" data-section="services">
                     <i class="fas fa-cogs"></i> Servicios
                 </a>
-                <a href="#" class="nav-link" data-section="files">
-                    <i class="fas fa-file-upload"></i> Archivos & CV
-                </a>
             </nav>
             <button id="btnLogout" class="btn-logout">
                 <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
@@ -97,32 +94,22 @@
                     <h2><i class="fas fa-user"></i> Perfil General</h2>
                 </div>
                                                 <form id="profileForm" class="admin-form">
-                    <!-- INFORMACIÓN BÁSICA -->
-                    <h3 style="margin-top: 0; margin-bottom: 1.5rem;"><i class="fas fa-id-card"></i> Información Básica</h3>
+                    <!-- 1. SIDEBAR (Foto y datos personales) -->
+                    <h3 style="margin-top: 0; margin-bottom: 1.5rem;"><i class="fas fa-id-card"></i> 1. Sidebar - Información Personal</h3>
+                    <small style="color: #666; display: block; margin-bottom: 1rem;">📌 Esta información aparece en la barra lateral izquierda</small>
                     <div class="form-grid">
                         <div class="form-group">
                             <label>Nombre Completo *</label>
-                            <input type="text" name="fullName" required>
+                            <input type="text" name="fullName" required placeholder="Luis Alberto Quino Manrique">
                         </div>
                         <div class="form-group">
                             <label>Título Profesional *</label>
-                            <input type="text" name="title" required>
+                            <input type="text" name="title" required placeholder="Ingeniero de Sistemas">
                         </div>
                         <div class="form-group full-width">
                             <label>Descripción Breve *</label>
-                            <textarea name="description" rows="2" required placeholder="Descripción corta para redes sociales"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Mensaje de Disponibilidad</label>
-                            <input type="text" name="heroBadge" placeholder="Disponible para proyectos">
-                            <small style="color: #666; display: block; margin-top: 5px;">💡 Ejemplos: "Disponible para proyectos", "No disponible actualmente"</small>
-                        </div>
-                        <div class="form-group">
-                            <label>Mostrar Badge de Disponibilidad</label>
-                            <select name="heroBadgeVisible">
-                                <option value="true">Sí, mostrar</option>
-                                <option value="false">No, ocultar</option>
-                            </select>
+                            <textarea name="description" rows="2" required placeholder="Especialista en Desarrollo Web"></textarea>
+                            <small style="color: #666; display: block; margin-top: 5px;">💡 Aparece debajo del título en el sidebar</small>
                         </div>
                         <div class="form-group full-width">
                             <label>Foto de Perfil</label>
@@ -136,18 +123,37 @@
                         </div>
                     </div>
 
-                    <!-- SOBRE MÍ -->
-                    <h3 style="margin-top: 2rem; margin-bottom: 1.5rem;"><i class="fas fa-user-circle"></i> Sobre Mí</h3>
+                    <!-- 2. PRIMERA SECCIÓN (Hero/Portada) -->
+                    <h3 style="margin-top: 2rem; margin-bottom: 1.5rem;"><i class="fas fa-home"></i> 2. Primera Sección - Portada Principal</h3>
+                    <small style="color: #666; display: block; margin-bottom: 1rem;">📌 Esta es la primera pantalla que ven al entrar a tu portafolio</small>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Mensaje de Disponibilidad</label>
+                            <input type="text" name="heroBadge" placeholder="Disponible para proyectos">
+                            <small style="color: #666; display: block; margin-top: 5px;">💡 Badge verde que aparece arriba del nombre</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Mostrar Badge</label>
+                            <select name="heroBadgeVisible">
+                                <option value="true">Sí, mostrar</option>
+                                <option value="false">No, ocultar</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 3. SEGUNDA SECCIÓN (Sobre Mí) -->
+                    <h3 style="margin-top: 2rem; margin-bottom: 1.5rem;"><i class="fas fa-user-circle"></i> 3. Segunda Sección - Sobre Mí</h3>
+                    <small style="color: #666; display: block; margin-bottom: 1rem;">📌 Cuadro con tu presentación profesional detallada</small>
                     <div class="form-grid">
                         <div class="form-group full-width">
-                            <label>Título de la Sección</label>
+                            <label>Título del Cuadro</label>
                             <input type="text" name="heroSubtitle" placeholder="Ingeniero de Sistemas Especialista en Desarrollo Web">
-                            <small style="color: #666; display: block; margin-top: 5px;">💡 Este es el título que aparece en el cuadro "Sobre Mí"</small>
+                            <small style="color: #666; display: block; margin-top: 5px;">💡 Título que aparece dentro del cuadro "Sobre Mí"</small>
                         </div>
                         <div class="form-group full-width">
                             <label>Texto de Presentación</label>
                             <textarea name="heroDescription" rows="4" placeholder="Desarrollo soluciones web innovadoras combinando desarrollo full-stack con inteligencia artificial..."></textarea>
-                            <small style="color: #666; display: block; margin-top: 5px;">💡 Esta es tu presentación personal que aparece en el cuadro "Sobre Mí"</small>
+                            <small style="color: #666; display: block; margin-top: 5px;">💡 Descripción personal que aparece en el cuadro "Sobre Mí"</small>
                         </div>
                     </div>
 
@@ -584,24 +590,6 @@
             </section>
 
             <!-- Files & CV Section -->
-            <section id="files-section" class="content-section" style="display: none;">
-                <div class="section-header">
-                    <h2><i class="fas fa-file-pdf"></i> Gestión de CV</h2>
-                    <p style="color: #666; font-size: 0.9rem; margin-top: 0.5rem;">Sube tu Hoja de Vida en formato PDF</p>
-                </div>
-
-                <div class="files-manager">
-                    <div class="file-upload-zone">
-                        <div class="upload-area" id="cvUploadArea">
-                            <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #6366f1; margin-bottom: 1rem;"></i>
-                            <h3 style="margin-bottom: 0.5rem;">Arrastra tu CV aquí o haz clic para seleccionar</h3>
-                            <p style="color: #666; font-size: 0.85rem;">Solo archivos PDF (máx 10MB)</p>
-                            <input type="file" id="cvFileInput" accept=".pdf" hidden>
-                        </div>
-                        <div id="currentCV" class="current-file"></div>
-                    </div>
-                </div>
-            </section>
         </main>
     </div>
 
