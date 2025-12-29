@@ -66,6 +66,7 @@ jobs:
             --exclude='.claude' \
             --exclude='deploy' \
             --exclude='node_modules' \
+            --exclude='firebase-config.js' \
             --exclude='firebase-config.example.js' \
             --exclude='*.md' \
             --exclude='*.txt' \
@@ -80,6 +81,9 @@ jobs:
             --exclude='setup-*' \
             --exclude='configurar-*' \
             . deploy/
+
+          echo "Copying firebase-config.js to deploy directory..."
+          cp -v firebase-config.js deploy/firebase-config.js
 
           echo "Ensuring .nojekyll exists..."
           touch deploy/.nojekyll
